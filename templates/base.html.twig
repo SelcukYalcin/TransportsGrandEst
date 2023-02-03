@@ -18,10 +18,14 @@
         <nav>
             <ul>
                 <a href="{{ path('app_home') }}">ACCUEIL</a>
-                <a href="{{ path('app_home') }}">s'inscrire</a>
-                <a href="{{ path('app_home') }}">se connecter</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}">se déconnecter</a>
+                {% else %}
+                    <a href="{{ path('app_register') }}">s'inscrire</a>
+                    <a href="{{ path('app_login') }}">se connecter</a>
+                {%  endif %}
             </ul>
         </nav>
-        {% block body %}0000014{% endblock %}
+        {% block body %}{% endblock %}
     </body>
 </html>
