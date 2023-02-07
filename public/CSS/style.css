@@ -6,14 +6,13 @@
 body{
     max-width: 1000px;
     color: rgb(0, 0, 0);
-    background-color: rgb(233, 221, 56);
+    background-color: rgb(233, 56, 56);
     text-align: center;
 }
 
 nav ul{
     display: flex;
     justify-content: space-evenly;
-    background-color: white;
-    /*align-items: center;*/
+    background-color: #e31e1e;
     padding: 10px;
 }
