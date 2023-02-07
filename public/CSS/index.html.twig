@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello{% endblock %}
+{% block title %}Hello {% endblock %}
 
 {% block body %}
 <style>
@@ -9,9 +9,12 @@
 </style>
 
 <div class="example-wrapper">
-
-    <h2> <a href="{{ path('app_devis_new') }}"> Demander un devis </a></h2>
-
+    <h1>Hello {{ controller_name }}! ✅</h1>
+    <ul>
+        <li style="color: blue;">Texte en bleu</li>
+        <li style="color: red;">Texte en rouge</li>
+        <li style="color: green;">Texte en vert</li>
+    </ul>
 
 </div>
 {% endblock %}
