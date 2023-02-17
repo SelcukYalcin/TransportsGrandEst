@@ -17,6 +17,10 @@ class Devis
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateVal = null;
 
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?User $membre = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,4 +37,17 @@ class Devis
 
         return $this;
     }
+
+    public function getMembre(): ?User
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?User $membre): self
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
 }

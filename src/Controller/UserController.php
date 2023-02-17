@@ -5,17 +5,29 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\Mailer;
+use App\Service\UserService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+
+    private UserService $userService;
+
     public function __construct(
-        private UserRepository $userRepository
-    ){}
+        private UserRepository $userRepository, Mailer $mailer, EntityManagerInterface $em, UserService $userService)
+    {
+        $this->mailer = $mailer;
+        $this->em = $em;
+        $this->userService = $userService;
+    }
+
 
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(): Response
@@ -25,15 +37,48 @@ class UserController extends AbstractController
         ]);
     }
 
+    //Action qui crée un nouvel User
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
+        //user est un nouvel user
         $user = new User();
+        //Affiche le formulaire
         $form = $this->createForm(UserType::class, $user);
+        //Demande du formulaire
+
         $form->handleRequest($request);
 
+
+        //Si le formulaire est soumis et est valide
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $this->userService->createTokenAndSendEmail($user);
+
             $this->userRepository->save($user, true);
+
+            $this->addFlash('success', "L'utilisateur " . $user->getEmail() . " est inscrit");
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        } elseif ($form->isSubmitted() && $user->getEmail()) {
+            /** @var User $user */
+            $user = $this->userRepository->findOneBy([
+                'email' => $user->getEmail(),
+            ]);
+
+
+            $this->userService->createTokenAndSendEmail($user);
+
+            $this->userRepository->save($user, true);
+
+            $this->addFlash(type: "danger", message: "Renvoi mail vérification ! ");
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -84,10 +129,4 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
-
-
-
-
 }

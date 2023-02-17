@@ -10,19 +10,18 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connecté  {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
         </div>
-    {% endif %}
+    {% else %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
+    <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+    <label class="required" for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail"  class="form-control" autocomplete="email" required autofocus>
+    <label class="required" for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+           value="{{ csrf_token('authenticate') }}">
 
 {#    #}{##}
 {#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
@@ -30,13 +29,15 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" name="_remember_me"> Remember me
+                <input type="checkbox" name="_remember_me"> Se souvenir de moi
             </label>
         </div>
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+        <button class="btn btn-lg btn-primary mt-3" type="submit">
+            Connexion
+        </button>
+        <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">
+            Mot de passe oublié
+        </a>
+    {% endif %}
 </form>
 {% endblock %}

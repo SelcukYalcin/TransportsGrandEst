@@ -4,34 +4,48 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
+use App\Repository\UserRepository;
+use App\Service\Mailer;
+use App\Service\UserService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
+    const EXPIRATION_TIME = 1;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    private Mailer $mailer;
+    private EntityManagerInterface $em;
+    private UserService $userService;
+
+    public function __construct(Mailer $mailer, EntityManagerInterface $em, UserService $userService)
     {
-        $this->emailVerifier = $emailVerifier;
+        $this->mailer = $mailer;
+        $this->em = $em;
+        $this->userService = $userService;
     }
 
+    //-------------- Action d'inscription : appele fonction register de mon controller
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request                     $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserRepository              $userRepository
+    ): Response
     {
+//-------------- On crée un new User et on le met en bdd new user est à l'etat non verifié
         $user = new User();
+//-------------- Afficher formulaire
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+//-------------- Si formulaire submitted && is valid
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -40,21 +54,28 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+//-------------- Créer le token et le stocker en bdd
+            $this->userService->createTokenAndSendEmail($user);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('selcuk.yalcin@sully-group.fr', 'selcuk.yalcin'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
+            $this->em->persist($user);
+            $this->em->flush();
+//-------------- Envoi d'un email: un lien de confirmation qui contient un token (suite de charactere generé en aléatoire)
+            $this->addFlash(type: "success", message: "Inscription réussie ! ");
 
             return $this->redirectToRoute('app_home');
+
+        } elseif ($form->isSubmitted() && $user->getEmail()) {
+            /** @var User $user */
+            $user = $userRepository->findOneBy([
+                'email' => $user->getEmail(),
+            ]);
+
+            $this->userService->createTokenAndSendEmail($user);
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(type: "danger", message: "Renvoi mail vérification ! ");
+
+            return $this->redirectToRoute('app_register');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -63,22 +84,48 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    // Action confirmation email
+    public function verifyUserEmail(
+        Request             $request,
+        TranslatorInterface $translator,
+        UserRepository      $userRepository
+    ): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
-            return $this->redirectToRoute('app_register');
+        $token = $request->query->get('token');
+        // - on récupere l'user (findOneBy UserRepository)
+        if (!$token) {
+            throw new AccessDeniedException();
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $user = $userRepository->findOneBy([
+            'token' => $token,
+        ]);
+        if (!$user) {
+            throw new AccessDeniedException();
+        }
 
-        return $this->redirectToRoute('app_register');
+        $userDateToken = $user->getDateToken();
+        $now = new DateTime();
+        $diff = $now->diff($userDateToken);
+        $hoursDiff = (int)$diff->format('%h');
+
+        //-------- On vérifie si le token a expiré ou non → SI la différence est inférieure à EXPIRATION_TIME si n'a pas expiré:
+        if (self::EXPIRATION_TIME > $hoursDiff) {
+            // Alors vérification acceptée
+            $this->addFlash('success', 'Email confirmé !');
+            //On passe le champ isVerified à true
+            $user->setIsVerified(true);
+            $this->em->flush();
+        } else {
+
+            // Sinon refusé -> message flash erreur
+            $this->addFlash('danger', 'Session expiré !');
+            // on redirige vers page d'inscription'
+            return $this->redirectToRoute('app_register');
+        }
+        // On redirige vers la connexion avec un message flash de succès
+        return $this->redirectToRoute('app_login');
     }
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -16,10 +17,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'label' => 'Confirm Password',
-                'mapped'=> false,
+                'mapped' => false,
                 'first_options' => [
                     'label' => 'Votre mot de passe',
                 ],
@@ -27,6 +28,13 @@ class UserType extends AbstractType
                     'label' => 'Confirmez votre mot de passe',
                 ],
                 'invalid_message' => "Votre mot de passe n'est pas identique"
+            ])
+            ->add('role', ChoiceType::class, [
+                'choices' => [
+                    'ROLE_USER' => 'ROLE_USER',
+                    'ROLE_ADMIN' => 'ROLE_ADMIN'
+                ],
+                'multiple' => true,
             ])
         ;
     }

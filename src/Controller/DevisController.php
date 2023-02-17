@@ -16,6 +16,11 @@ class DevisController extends AbstractController
     #[Route('/', name: 'app_devis_index', methods: ['GET'])]
     public function index(DevisRepository $devisRepository): Response
     {
+
+        if ($this->isGranted('ROLE_USER') === false) {
+            return new Response("Vous n'avez pas accès à la page");
+        }
+
         return $this->render('devis/index.html.twig', [
             'devis' => $devisRepository->findAll(),
         ]);
@@ -29,6 +34,10 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($this->getUser()) {
+                $devi->setMembre($this->getUser());
+            }
+
             $devisRepository->save($devi, true);
 
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
@@ -69,7 +78,7 @@ class DevisController extends AbstractController
     #[Route('/{id}', name: 'app_devis_delete', methods: ['POST'])]
     public function delete(Request $request, Devis $devi, DevisRepository $devisRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$devi->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $devi->getId(), $request->request->get('_token'))) {
             $devisRepository->remove($devi, true);
         }
 
