@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Date de validité</th>
+                <th>Membre</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
             <tr>
                 <td>{{ devi.id }}</td>
                 <td>{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
+                <td>{{ devi.membre.email }}</td>
                 <td>
                     <a href="{{ path('app_devis_show', {'id': devi.id}) }}">Détails</a>
                     <a href="{{ path('app_devis_edit', {'id': devi.id}) }}">Modifier</a>

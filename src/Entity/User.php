@@ -51,9 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Devis::class)]
     private Collection $devis;
 
+    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Livraison::class)]
+    private Collection $livraisons;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
+        $this->livraisons = new ArrayCollection();
     }
 
 
@@ -230,6 +234,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($devi->getMembre() === $this) {
                 $devi->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livraison>
+     */
+    public function getLivraisons(): Collection
+    {
+        return $this->livraisons;
+    }
+
+    public function addLivraison(Livraison $livraison): self
+    {
+        if (!$this->livraisons->contains($livraison)) {
+            $this->livraisons->add($livraison);
+            $livraison->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivraison(Livraison $livraison): self
+    {
+        if ($this->livraisons->removeElement($livraison)) {
+            // set the owning side to null (unless already changed)
+            if ($livraison->getMembre() === $this) {
+                $livraison->setMembre(null);
             }
         }
 
