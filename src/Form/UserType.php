@@ -29,7 +29,7 @@ class UserType extends AbstractType
                 ],
                 'invalid_message' => "Votre mot de passe n'est pas identique"
             ])
-            ->add('role', ChoiceType::class, [
+            ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'ROLE_USER' => 'ROLE_USER',
                     'ROLE_ADMIN' => 'ROLE_ADMIN'

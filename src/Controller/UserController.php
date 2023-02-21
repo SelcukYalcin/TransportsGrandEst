@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -29,60 +30,49 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(): Response
+    #[Route('/list', name: 'app_user_index', methods: ['GET'])]
+    public function index(UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('user/index.html.twig', [
             'users' => $this->userRepository->findAll(),
         ]);
     }
 
-    //Action qui crée un nouvel User
+    // Action qui crée un nouvel User
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        //user est un nouvel user
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // User est un nouvel User
         $user = new User();
-        //Affiche le formulaire
+        // Affiche le formulaire
         $form = $this->createForm(UserType::class, $user);
-        //Demande du formulaire
-
+        // Demande du formulaire
         $form->handleRequest($request);
-
-
-        //Si le formulaire est soumis et est valide
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        // Si le formulaire est soumis et est valide
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $this->userService->createTokenAndSendEmail($user);
-
             $this->userRepository->save($user, true);
-
             $this->addFlash('success', "L'utilisateur " . $user->getEmail() . " est inscrit");
-
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         } elseif ($form->isSubmitted() && $user->getEmail()) {
             /** @var User $user */
             $user = $this->userRepository->findOneBy([
                 'email' => $user->getEmail(),
             ]);
-
-
             $this->userService->createTokenAndSendEmail($user);
-
             $this->userRepository->save($user, true);
-
             $this->addFlash(type: "danger", message: "Renvoi mail vérification ! ");
-
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
@@ -92,41 +82,46 @@ class UserController extends AbstractController
     #[Route('/show/{id}', name: 'app_user_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show($id): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $userConnecter = $this->getUser();
         $user = $this->userRepository->find($id);
-//        dd($user);
+        if (!$this->isGranted('ROLE_ADMIN')) {
+
+            if ($userConnecter !== $user) {
+                throw new AccessDeniedException();
+            }
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, $id, UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $user = $this->userRepository->find($id);
-
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $userRepository->save($user, true);
-
+            $this->addFlash('message', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token')))
+        {
             $userRepository->remove($user, true);
         }
-
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
