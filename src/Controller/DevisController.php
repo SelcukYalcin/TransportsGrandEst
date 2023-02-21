@@ -5,25 +5,39 @@ namespace App\Controller;
 use App\Entity\Devis;
 use App\Form\DevisType;
 use App\Repository\DevisRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/devis')]
 class DevisController extends AbstractController
 {
-    #[Route('/', name: 'app_devis_index', methods: ['GET'])]
-    public function index(DevisRepository $devisRepository): Response
+    public function __construct(
+        DevisRepository $devisRepository,
+        UserRepository  $userRepository
+    )
     {
+
+    }
+
+
+    #[Route('/list', name: 'app_devis_index', methods: ['GET'])]
+    public function index(DevisRepository $devisRepository, UserRepository $userRepository): Response
+    {
+
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         if ($this->isGranted('ROLE_ADMIN')) {
             //Afficher tous les devis
             $devis = $devisRepository->findAll();
-        }else{
+        } else {
             // afficher que les devis du user connecté
-            $devis = $devisRepository->findBy(['membre' => $this->getUser()]);
+            $devis = $this->getUser()->getDevis();
+
         }
 
         return $this->render('devis/index.html.twig', [
@@ -39,7 +53,7 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($this->getUser()) {
+            if ($this->getUser()) {
                 $devi->setMembre($this->getUser());
             }
 
@@ -54,37 +68,74 @@ class DevisController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_devis_show', methods: ['GET'])]
-    public function show(Devis $devi): Response
+    #[Route('/show/{id}', name: 'app_devis_show', methods: ['GET'])]
+    public function show(Devis $devi, DevisRepository $devisRepository): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+
+            // afficher que les devis du user connecté
+
+            $userConnecter = $this->getUser();
+            $userDevis = $devi->getMembre();
+            if ($userConnecter !== $userDevis) {
+                throw new AccessDeniedException();
+
+            }
+
+        }
 
         return $this->render('devis/show.html.twig', [
             'devi' => $devi,
         ]);
+
     }
 
-    #[Route('/{id}/edit', name: 'app_devis_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Devis $devi, DevisRepository $devisRepository): Response
+    #[Route('/edit/{id}', name: 'app_devis_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, int $id, Devis $devi, DevisRepository $devisRepository, UserRepository $userRepository): Response
     {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
+        if (!$this->isGranted('ROLE_ADMIN')) {
 
-        $form = $this->createForm(DevisType::class, $devi);
-        $form->handleRequest($request);
+            // afficher que les devis de l'User connecté
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $devisRepository->save($devi, true);
+            $userConnecter = $this->getUser();
+            $userDevis = $devi->getMembre();
+            if ($userConnecter !== $userDevis) {
+                throw new AccessDeniedException();
 
-            return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
+            }
+
         }
 
-        return $this->renderForm('devis/edit.html.twig', [
-            'devi' => $devi,
-            'form' => $form,
+        $devis = $devisRepository->findOneBy([
+            'id' => $id,
+            'membre' => $this->getUser()
         ]);
+        if (!is_null($devis)) {
+            if ($devis->getMembre()->getId() === $this->getUser()->getId()) {
+                $form = $this->createForm(DevisType::class, $devi);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $devisRepository->save($devi, true);
+
+                    return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
+                }
+
+                return $this->renderForm('devis/edit.html.twig', [
+                    'devi' => $devi,
+                    'form' => $form,
+                ]);
+            }
+        }
+
+        return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}', name: 'app_devis_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_devis_delete', methods: ['POST'])]
     public function delete(Request $request, Devis $devi, DevisRepository $devisRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');

@@ -15,6 +15,10 @@
                 <th>Date de validité :</th>
                 <td>{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
             </tr>
+        <tr>
+            <th>Membre</th>
+            <td>{{ devi.membre.email }}</td>
+        </tr>
         </tbody>
     </table>
 
