@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Expéditeur</th>
                 <th>Destinataire</th>
+                <th>Membre</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ livraison.id }}</td>
                 <td>{{ livraison.expediteur }}</td>
                 <td>{{ livraison.destinataire }}</td>
+                <td>{{ livraison.membre.email }}</td>
                 <td>
                     <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}">Détails</a>
                     <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}">Modifier</a>

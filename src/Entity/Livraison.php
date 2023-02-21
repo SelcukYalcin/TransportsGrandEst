@@ -19,6 +19,10 @@ class Livraison
     #[ORM\Column(length: 255)]
     private ?string $destinataire = null;
 
+    #[ORM\ManyToOne(inversedBy: 'livraisons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $membre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class Livraison
     public function setDestinataire(string $destinataire): self
     {
         $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    public function getMembre(): ?User
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?User $membre): self
+    {
+        $this->membre = $membre;
 
         return $this;
     }

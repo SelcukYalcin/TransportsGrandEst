@@ -15,12 +15,12 @@ class DevisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateVal');
-//            ->add('membre', EntityType::class, [
-//                'class' => User::class,
-//
-//                'choice_label' => 'email'
-//        ]);
+            ->add('dateVal')
+            ->add('membre', EntityType::class, [
+                'class' => User::class,
+
+                'choice_label' => 'email'
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -14,7 +14,7 @@ class Devis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private ?\DateTimeInterface $dateVal = null;
 
     #[ORM\ManyToOne(inversedBy: 'devis')]
