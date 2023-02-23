@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Devis{% endblock %}
+{% block title %}Modifier le Devis{% endblock %}
 
 {% block body %}
-    <h1>Edit Devis</h1>
+    <h1 class="badge bg-info">Modifier le Devis</h1><br>
 
     {% if devi.getMembre %}
-        {{ devi.getMembre.getUserIdentifier() }}
+        <p class="badge bg-success">{{ devi.getMembre.getUserIdentifier() }}</p>
     {% endif %}
 
     {{ include('devis/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_devis_index') }}">back to list</a>
+    <a href="{{ path('app_devis_index') }}" class="btn btn-secondary">back to list</a>
 
     {{ include('devis/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,26 +3,30 @@
 {% block title %}Devis index{% endblock %}
 
 {% block body %}
-    <h1>Liste des Devis</h1>
+    <h1 class="badge bg-info">Liste des Devis</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>N° de Devis</th>
                 <th>Date de validité</th>
                 <th>Membre</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for devi in devis %}
             <tr>
-                <td>{{ devi.id }}</td>
-                <td>{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
-{#                <td>{{ devi.membre.email }}</td>#}
+                <td><span class="badge bg-secondary">{{ devi.id }}</td>
+                <td><span class="badge bg-info">{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
+                {% if devi.membre %}
+                    <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
+                {% else %}
+                    <td><span class="badge bg-warning">Aucun utilisateur associé au devis</td>
+                {% endif %}
                 <td>
-                    <a href="{{ path('app_devis_show', {'id': devi.id}) }}">Détails</a>
-                    <a href="{{ path('app_devis_edit', {'id': devi.id}) }}">Modifier</a>
+                    <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="btn btn-info">Détails</a>
+                    <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_devis_new') }}">Create new</a>
+    <a href="{{ path('app_devis_new') }}" class="btn btn-warning">Create new</a>
 {% endblock %}

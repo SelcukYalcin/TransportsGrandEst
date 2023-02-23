@@ -1,30 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livraison{% endblock %}
+{% block title %}Détails de la Livraison{% endblock %}
 
 {% block body %}
-    <h1>Livraison</h1>
+    <h1 class="badge bg-info">Détails de la Livraison</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ livraison.id }}</td>
+                <td><span class="badge bg-success">{{ livraison.id }}</span></td>
             </tr>
             <tr>
                 <th>Expéditeur</th>
-                <td>{{ livraison.expediteur }}</td>
+                <td><span class="badge bg-success">{{ livraison.expediteur }}</span></td>
             </tr>
             <tr>
                 <th>Destinataire</th>
-                <td>{{ livraison.destinataire }}</td>
+                <td><span class="badge bg-success">{{ livraison.destinataire }}</span></td>
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_livraison_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}">Modifier</a>
-
+    <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}" class="btn btn-warning">Modifier</a>
+    <a href="{{ path('app_livraison_index') }}" class="btn btn-secondary">Retour à la liste</a>
     {{ include('livraison/_delete_form.html.twig') }}
 {% endblock %}

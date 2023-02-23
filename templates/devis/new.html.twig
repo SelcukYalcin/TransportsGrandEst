@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Devis{% endblock %}
+{% block title %}Nouveau Devis{% endblock %}
 
 {% block body %}
-    <h1>Demandez votre Devis</h1>
-{#    <button type="button" class="btn">Enregistrer</button>#}
-
+    <h1 class="badge bg-info">Demandez votre Devis</h1>
     {{ include('devis/_form.html.twig') }}
-
-
-    <a href="{{ path('app_devis_index') }}">Back to list</a>
+    <a href="{{ path('app_devis_index') }}" class="btn btn-secondary">Back to list</a>
 {% endblock %}

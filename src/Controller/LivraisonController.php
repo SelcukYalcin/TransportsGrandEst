@@ -27,13 +27,13 @@ class LivraisonController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN'))
         {
             // Afficher toutes les livraisons
-            $livraison = $livraisonRepository->findAll();
+            $livraisons = $livraisonRepository->findAll();
         } else {
             // Afficher que les livraisons de l'User connecté
-            $livraison = $this->getUser()->getLivraisons();
+            $livraisons = $this->getUser()->getLivraisons();
         }
         return $this->render('livraison/index.html.twig', [
-            'livraisons' => $livraison,
+            'livraisons' => $livraisons,
         ]);
     }
 

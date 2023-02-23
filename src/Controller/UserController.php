@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\DevisRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
 use App\Service\UserService;
@@ -51,8 +52,7 @@ class UserController extends AbstractController
         // Demande du formulaire
         $form->handleRequest($request);
         // Si le formulaire est soumis et est valide
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -97,31 +97,73 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, $id, UserRepository $userRepository): Response
+    public function edit(Request $request, int $id, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $user = $this->userRepository->find($id);
+
+        $isAdmin = $user->getRoles();
+//        dd($isAdmin);
+        in_array("ROLE_ADMIN", $isAdmin);
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            if ($isAdmin) {
+                // Est-ce que je l'ai encore ?
+                //          in_array()
+                // $user a un role ROLE_ADMIN
+
+                //Si oui, alors est-ce que il y'en a un autre en BDD ?
+//                $query
+//                    ->andWhere('o.roles LIKE :role')
+//                    ->setParameter('role', '%ROLE_ADMIN%')
+                ;
+                // requet au repo UserRepository en cherchant si ROLE_ADMIN existe
+                //          SI oui, alors on autorise le changement -> on continue
+                //          Si non, alors on refuse la modification -> redirect avec message flash danger
+            }
+
+
+            if ($form->get('plainPassword')->getData()) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
+
             $userRepository->save($user, true);
             $this->addFlash('message', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
+return $this->render('user/edit.html.twig', ['user' => $user,
+    'form' => $form->createView(),]);
+}
 
-    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    #[
+        Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, UserRepository $userRepository, DevisRepository $devisRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token')))
-        {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $devisToUpdate = $devisRepository->findBy([
+                'membre' => $user
+            ]);
+
+            foreach ($devisToUpdate as $deviToUpdate) {
+                $deviToUpdate->setMembre(null);
+                $devisRepository->save($deviToUpdate, true);
+            }
+
             $userRepository->remove($user, true);
         }
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }
