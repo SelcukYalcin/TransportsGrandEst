@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('/CSS/style.css') }}">
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bienvenue{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('/CSS/style.css') }}">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <nav>
-            <ul>
-                <button class="btn"> <a href="{{ path('app_home') }}" class="btn btn-info">Accueil</a> </button>
-                {% if app.user %}
-                <button class="btn"> <a href="{{ path('app_logout') }}" class="btn btn-warning">Se déconnecter</a></button>
-                {% else %}
-                <button class="btn"> <a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a></button>
-                <button class="btn"> <a href="{{ path('app_login') }}">Se connecter</a></button>
-                {%  endif %}
-            </ul>
-        </nav>
-        {%  if app.user  %}
-            <p class="badge bg-success">Bienvenue {{  app.user.userIdentifier }}</p><br>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Accueil</a></button>
+        </li>
+        <li>
+        {% if app.user %}
+            <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning">Se déconnecter</a></button>
+        {% else %}
+            <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a></button>
+            <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success">Se connecter</a></button>
         {% endif %}
-        {% for type, messages in app.flashes('') %}
-            {% for message in messages %}
-                <div class="alert alert-{{ type }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        </li>
+    </ul>
+</nav>
+
+<section class="container">
+
+    {% if app.user %}
+        <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p><br>
+    {% endif %}
+    {% for type, messages in app.flashes('') %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
         {% endfor %}
+    {% endfor %}
 
-
-        {% block body %}{% endblock %}
-    </body>
+    {% block body %}{% endblock %}
+</section>
+</body>
 </html>

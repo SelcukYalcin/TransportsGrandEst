@@ -3,7 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>S'inscrire</h1>
+    <h1 class="badge bg-info">Inscription</h1>
     <div class="row">
         <div class="column large-12 tab-12">
             {% for message in app.flashes('succes') %}
@@ -17,7 +17,7 @@
                 label: 'Password'
             }) }}
             {{ form_row(registrationForm.agreeTerms) }}
-            <button type="submit" class="btn">S'inscrire</button>
+            <button type="submit" class="btn btn-success">S'inscrire</button>
             {{ form_end(registrationForm) }}
         </div>
     </div>

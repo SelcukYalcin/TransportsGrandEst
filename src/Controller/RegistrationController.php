@@ -54,8 +54,18 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            // Si il n'y a aucun utilisateur, alors on créé l'utilisateur admin
+            if (count($userRepository->findAll()) === 0) {
+                $user->setRoles([
+                    'ROLE_USER',
+                    'ROLE_ADMIN'
+                ]);
+                $user->setIsVerified(true);
+            } else {
 //-------------- Créer le token et le stocker en bdd
-            $this->userService->createTokenAndSendEmail($user);
+                $this->userService->createTokenAndSendEmail($user);
+            }
 
             $this->em->persist($user);
             $this->em->flush();

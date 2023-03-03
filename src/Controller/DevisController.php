@@ -47,6 +47,8 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $devi->setDateVal(new \DateTime('now + 1 month'));
+
             if ($this->getUser()) {
                 $devi->setMembre($this->getUser());
             }

@@ -18,7 +18,7 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, [
-                'required' => false,
+                'required' => true,
                 'type' => PasswordType::class,
                 'label' => 'Confirm Password',
                 'mapped' => false,

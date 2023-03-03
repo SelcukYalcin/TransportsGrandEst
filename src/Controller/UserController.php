@@ -52,7 +52,8 @@ class UserController extends AbstractController
         // Demande du formulaire
         $form->handleRequest($request);
         // Si le formulaire est soumis et est valide
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -85,9 +86,10 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         $userConnecter = $this->getUser();
         $user = $this->userRepository->find($id);
-        if (!$this->isGranted('ROLE_ADMIN')) {
-
-            if ($userConnecter !== $user) {
+        if (!$this->isGranted('ROLE_ADMIN'))
+        {
+            if ($userConnecter !== $user)
+            {
                 throw new AccessDeniedException();
             }
         }
@@ -101,31 +103,32 @@ class UserController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $user = $this->userRepository->find($id);
-
-        $isAdmin = $user->getRoles();
-//        dd($isAdmin);
-        in_array("ROLE_ADMIN", $isAdmin);
+        $isAdmin = in_array("ROLE_ADMIN", $user->getRoles());
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+//        $user = $this->userRepository->findByRoles('["ROLE_ADMIN"]');
+//        dd($user);
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             if ($isAdmin) {
                 // Est-ce que je l'ai encore ?
                 //          in_array()
                 // $user a un role ROLE_ADMIN
-
+                $isEncoreAdmin = in_array("ROLE_ADMIN", $user->getRoles());
+                if (!$isEncoreAdmin) {
+                    $nbAdmin = $this->userRepository->countAdmin();
+                    if ($nbAdmin <= 1) {
+                        //INterdire la modification
+                        $this->addFlash('danger', 'Il doit rester au moins un administrateur.');
+                        return $this->redirectToRoute('app_user_index');
+                    }
+                }
                 //Si oui, alors est-ce que il y'en a un autre en BDD ?
-//                $query
-//                    ->andWhere('o.roles LIKE :role')
-//                    ->setParameter('role', '%ROLE_ADMIN%')
-                ;
                 // requet au repo UserRepository en cherchant si ROLE_ADMIN existe
                 //          SI oui, alors on autorise le changement -> on continue
                 //          Si non, alors on refuse la modification -> redirect avec message flash danger
             }
-
 
             if ($form->get('plainPassword')->getData()) {
                 $user->setPassword(
@@ -137,12 +140,12 @@ class UserController extends AbstractController
             }
 
             $userRepository->save($user, true);
-            $this->addFlash('message', 'Utilisateur modifié avec succès');
+            $this->addFlash('success', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-return $this->render('user/edit.html.twig', ['user' => $user,
-    'form' => $form->createView(),]);
-}
+        return $this->render('user/edit.html.twig', ['user' => $user,
+            'form' => $form->createView(),]);
+    }
 
     #[
         Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
@@ -160,7 +163,11 @@ return $this->render('user/edit.html.twig', ['user' => $user,
                 $devisRepository->save($deviToUpdate, true);
             }
 
-            $userRepository->remove($user, true);
+            if ($user->getId() !== $this->getUser()->getId()) {
+                $userRepository->remove($user, true);
+            } else {
+                return $this->redirectToRoute('app_user_index');
+            }
         }
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
