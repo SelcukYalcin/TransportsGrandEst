@@ -65,7 +65,11 @@ class DevisType extends AbstractType
                 ]
             ])
             ->add('email', EmailType::class,[
-                'label' => 'email',
+                'attr' => [
+                    'label' => 'email',
+                    'class' => 'form-control'
+                ]
+
             ])
             ;
 

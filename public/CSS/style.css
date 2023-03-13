@@ -8,17 +8,26 @@ body{
     background-color: rgb(186, 186, 197);
     /*text-align: center;*/
 }
-
-nav ul{
+ul{
+    margin: 0;
+}
+header ul{
     display: flex;
     justify-content: space-evenly;
-    background-color: #fa8a31;
+    background-color: #3177fa;
     padding: 10px;
-    border-radius: 10px;
 }
 .required:after {
     content: " *";
     color: red;
+}
+nav ul {
+    width: 66%;
+    display: flex;
+}
+
+nav > ul > li {
+    width: fit-content;
 }
 
 .alert.alert-success{
@@ -27,4 +36,19 @@ nav ul{
 
 .alert.alert-danger{
     color: red;
+}
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #314cfa;
+    color: white;
+    margin: 0;
+}
+footer ul {
+    display: flex;
+    width: 66%;
+    margin-bottom: 0;
+
 }
