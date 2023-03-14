@@ -39,7 +39,7 @@
             <div class="card-body">
                 <h5 class="card-title">Particulier</h5>
                 <p class="card-text">Vous êtes un particulier</p>
-                <a href="container-card2" class="btn btn-primary">Continuer</a>
+                <a href="" class="btn btn-primary">Continuer</a>
             </div>
         </div>
     </div>
@@ -59,6 +59,13 @@
             </div>
         </div>
     </div>
+    <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary">Expéditeurs</a>
+    <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary">créer un expéditeur</a>
+    <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary">Destinataires</a>
+    <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary">créer un destinataire</a>
+    <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary">Marchandises</a>
+    <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary">créer une marchandise</a>
+
 
 
 {% endblock %}

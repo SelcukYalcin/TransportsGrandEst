@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivraisonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
@@ -22,6 +24,14 @@ class Livraison
     #[ORM\ManyToOne(inversedBy: 'livraisons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $membre = null;
+
+    #[ORM\OneToMany(mappedBy: 'livraison', targetEntity: Marchandise::class)]
+    private Collection $marchandises;
+
+    public function __construct()
+    {
+        $this->marchandises = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class Livraison
     public function setMembre(?User $membre): self
     {
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Marchandise>
+     */
+    public function getMarchandises(): Collection
+    {
+        return $this->marchandises;
+    }
+
+    public function addMarchandise(Marchandise $marchandise): self
+    {
+        if (!$this->marchandises->contains($marchandise)) {
+            $this->marchandises->add($marchandise);
+            $marchandise->setLivraison($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMarchandise(Marchandise $marchandise): self
+    {
+        if ($this->marchandises->removeElement($marchandise)) {
+            // set the owning side to null (unless already changed)
+            if ($marchandise->getLivraison() === $this) {
+                $marchandise->setLivraison(null);
+            }
+        }
 
         return $this;
     }

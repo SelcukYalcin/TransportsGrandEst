@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Devis{% endblock %}
+
+{% block body %}
+    <h1 class="badge bg-info">Expéditeur</h1>
+    {{ include('expediteur/_form.html.twig') }}
+    <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary">Back to list</a>
+{% endblock %}
