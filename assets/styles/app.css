@@ -1,5 +1,7 @@
 body {
     background-color: lightgray;
+    display: block;
+
 }
 li {
     list-style: none;

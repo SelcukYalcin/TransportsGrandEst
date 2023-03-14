@@ -3,19 +3,62 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #c925a3; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #c925a3;
+            padding: 2px 6px;
+        }
+    </style>
 
     <div class="example-wrapper">
-    <h2><a href="{{ path('app_devis_new') }}" class="btn btn-warning">Demander un devis</a></h2>
-</div>
+        <h2><a href="{{ path('app_devis_new') }}" class="btn btn-warning">Demander un devis</a></h2>
+    </div>
     <div>
         {% if app.user %}
-        <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info">Liste des  devis</a></h3>
-        <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info">Liste des livraisons</a></h3>
-        <h3><a href="{{ path('app_user_index') }}" class="btn btn-info">Liste des utilisateurs</a></h3>
+            <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info">Liste des devis</a></h3>
+            <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info">Liste des livraisons</a></h3>
+            <h3><a href="{{ path('app_user_index') }}" class="btn btn-info">Liste des utilisateurs</a></h3>
         {% endif %}
     </div>
+    <div class="container-card1">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Professionnel</h5>
+                <p class="card-text">Vous êtes un professionnel</p>
+                <a href="" class="btn btn-primary">Continuer</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Particulier</h5>
+                <p class="card-text">Vous êtes un particulier</p>
+                <a href="container-card2" class="btn btn-primary">Continuer</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-card2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Express</h5>
+                <p class="card-text">Délai d'intervention : 4 heures</p>
+                <a href="" class="btn btn-primary">Continuer</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Standard</h5>
+                <p class="card-text">Délai d'intervention : 24 heures</p>
+                <a href="" class="btn btn-primary">Continuer</a>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}

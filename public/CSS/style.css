@@ -6,11 +6,10 @@ body{
     /*max-width: 1000px;*/
     color: rgb(0, 0, 0);
     background-color: rgb(186, 186, 197);
+    display: block;
     /*text-align: center;*/
 }
-ul{
-    margin: 0;
-}
+
 header ul{
     display: flex;
     justify-content: space-evenly;
@@ -20,14 +19,11 @@ header ul{
 .required:after {
     content: " *";
     color: red;
+
 }
 nav ul {
-    width: 66%;
     display: flex;
-}
-
-nav > ul > li {
-    width: fit-content;
+    justify-content: center;
 }
 
 .alert.alert-success{
@@ -37,18 +33,29 @@ nav > ul > li {
 .alert.alert-danger{
     color: red;
 }
-footer{
-    position: fixed;
+.container-card1{
+    display: flex;
+    margin: 50px;
+}
+.container-card2{
+    display: flex;
+    margin: 30px;
+}
+.footer{
+    /*position: fixed;*/
     left: 0;
     bottom: 0;
-    width: 100%;
     background-color: #314cfa;
     color: white;
     margin: 0;
-}
-footer ul {
     display: flex;
-    width: 66%;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.footer ul {
+    display: flex;
+    justify-content: space-evenly;
     margin-bottom: 0;
+    width: 66%;
 
 }
