@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destinataire{% endblock %}
+
+{% block body %}
+    <h1>Destinataire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ destinataire.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ destinataire.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ destinataire.adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ destinataire.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ destinataire.ville }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_destinataire_index') }}">back to list</a>
+
+    <a href="{{ path('app_destinataire_edit', {'id': destinataire.id}) }}">edit</a>
+
+    {{ include('destinataire/_delete_form.html.twig') }}
+{% endblock %}
