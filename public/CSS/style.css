@@ -26,6 +26,11 @@ nav ul {
     justify-content: center;
 }
 
+nav ul li {
+    border-left: 1px solid #090be8;
+    border-right: 1px solid #090be8;
+}
+
 .alert.alert-success{
     color: green;
 }
@@ -57,5 +62,6 @@ nav ul {
     justify-content: space-evenly;
     margin-bottom: 0;
     width: 66%;
+    padding-left: 0;
 
 }

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expéditeur{% endblock %}
+
+{% block body %}
+    <h1>Expéditeur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ expediteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ expediteur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ expediteur.adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ expediteur.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ expediteur.ville }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_expediteur_index') }}">back to list</a>
+
+    <a href="{{ path('app_expediteur_edit', {'id': expediteur.id}) }}">edit</a>
+
+    {{ include('expediteur/_delete_form.html.twig') }}
+{% endblock %}

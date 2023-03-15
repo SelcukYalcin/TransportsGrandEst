@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marchandise index{% endblock %}
+
+{% block body %}
+    <h1>Marchandise index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Conditionnement</th>
+                <th>Type</th>
+                <th>Quantité</th>
+                <th>Longueur(cm)</th>
+                <th>Largeur(cm)</th>
+                <th>Hauteur(cm)</th>
+                <th>Poids Unitaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for marchandise in marchandises %}
+            <tr>
+                <td>{{ marchandise.id }}</td>
+                <td>{{ marchandise.conditionnement }}</td>
+                <td>{{ marchandise.typeMarchandise }}</td>
+                <td>{{ marchandise.qte }}</td>
+                <td>{{ marchandise.longueur }}</td>
+                <td>{{ marchandise.largeur }}</td>
+                <td>{{ marchandise.hauteur }}</td>
+                <td>{{ marchandise.poids }}</td>
+                <td>
+                    <a href="{{ path('app_marchandise_show', {'id': marchandise.id}) }}">show</a>
+                    <a href="{{ path('app_marchandise_edit', {'id': marchandise.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_marchandise_new') }}">Create new</a>
+{% endblock %}

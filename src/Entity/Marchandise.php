@@ -37,11 +37,11 @@ class Marchandise
     private ?float $poids = null;
 
     #[ORM\ManyToOne(inversedBy: 'marchandises')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Expediteur $expediteur = null;
 
     #[ORM\ManyToOne(inversedBy: 'marchandises')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Destinataire $destinataire = null;
 
     public function getId(): ?int

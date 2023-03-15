@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marchandise{% endblock %}
+
+{% block body %}
+    <h1>Marchandise</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ marchandise.id }}</td>
+            </tr>
+            <tr>
+                <th>Conditionnement</th>
+                <td>{{ marchandise.conditionnement }}</td>
+            </tr>
+            <tr>
+                <th>Type de Marchandise</th>
+                <td>{{ marchandise.typeMarchandise }}</td>
+            </tr>
+            <tr>
+                <th>Quantité</th>
+                <td>{{ marchandise.qte }}</td>
+            </tr>
+            <tr>
+                <th>Longueur</th>
+                <td>{{ marchandise.longueur }}</td>
+            </tr>            <tr>
+                <th>Largeur</th>
+                <td>{{ marchandise.largeur }}</td>
+            </tr>            <tr>
+                <th>Hauteur</th>
+                <td>{{ marchandise.hauteur }}</td>
+            </tr>            <tr>
+                <th>Poids Unitaire</th>
+                <td>{{ marchandise.poids }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_marchandise_index') }}">back to list</a>
+
+    <a href="{{ path('app_marchandise_edit', {'id': marchandise.id}) }}">edit</a>
+
+{#    {{ include('marchandise/_delete_form.html.twig') }}#}
+{% endblock %}
