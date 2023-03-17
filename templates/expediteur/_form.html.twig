@@ -1,4 +1,12 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+    {{ form_row(form.email) }}
+    {{ form_row(form.expediteur) }}
+    {{ form_row(form.destinataire) }}
+    {# the data-index attribute is required for the JavaScript code below #}
+<ul class="marchandise"
+    data-index="{{ form.marchandise|length > 0 ? form.marchandise|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.marchandise.vars.prototype)|e('html_attr') }}">
+</ul>
+<button type="button" class="add_item_link" data-collection-holder-class="marchandise">Ajouter un colis</button>
+<button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
 {{ form_end(form) }}

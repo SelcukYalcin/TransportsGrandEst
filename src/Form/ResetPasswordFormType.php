@@ -27,7 +27,7 @@ class ResetPasswordFormType extends AbstractType
                         [
                             'required' => true,
                             'label' => 'Mot de Passe ',
-                            'attr' => ['autocomplete' => 'new-password'],
+                            'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
                             'constraints' =>
                                 [
                                     new NotBlank(
@@ -45,8 +45,10 @@ class ResetPasswordFormType extends AbstractType
                         ],
                     'second_options' =>
                         [
-                            'label' => 'Répétez le Mot de Passe '
-                        ],
+                            'attr' => ['class' => 'form-control',
+                                'label' => 'Répétez le Mot de Passe ']
+                        ]
+
                 ]);;
     }
 

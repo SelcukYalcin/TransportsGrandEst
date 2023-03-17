@@ -6,7 +6,7 @@ body{
     /*max-width: 1000px;*/
     color: rgb(0, 0, 0);
     background-color: rgb(186, 186, 197);
-    display: block;
+    /*display: block;*/
     /*text-align: center;*/
 }
 
@@ -23,7 +23,10 @@ header ul{
 }
 nav ul {
     display: flex;
+    flex-wrap: wrap;
+
     justify-content: center;
+    padding-left: 0;
 }
 
 nav ul li {
@@ -38,16 +41,48 @@ nav ul li {
 .alert.alert-danger{
     color: red;
 }
+.card{
+    display: flex;
+    width: 300px;
+    flex-wrap: wrap;
+    margin: 30px;
+
+}
+
 .container-card1{
     display: flex;
-    margin: 50px;
+    margin: 30px;
+    justify-content: space-evenly;
+
 }
 .container-card2{
     display: flex;
     margin: 30px;
+    justify-content: space-evenly;
+
 }
+.trajet{
+    display: flex;
+    justify-content: center;
+
+}
+
+.info-marchandise{
+    display: flex;
+    justify-content: center;
+}
+
+.coordonnees{
+    display: flex;
+    justify-content: center;
+}
+
+.devis-form{
+    margin-bottom: 72px;
+}
+
 .footer{
-    /*position: fixed;*/
+    position: fixed;
     left: 0;
     bottom: 0;
     background-color: #314cfa;

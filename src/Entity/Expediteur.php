@@ -30,9 +30,13 @@ class Expediteur
     #[ORM\OneToMany(mappedBy: 'expéditeur', targetEntity: Marchandise::class)]
     private Collection $marchandises;
 
+    #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Devis::class)]
+    private Collection $devis;
+
     public function __construct()
     {
         $this->marchandises = new ArrayCollection();
+        $this->devis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,6 +116,36 @@ class Expediteur
             // set the owning side to null (unless already changed)
             if ($marchandise->getExpediteur() === $this) {
                 $marchandise->setExpediteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevis(Devis $devis): self
+    {
+        if (!$this->devis->contains($devis)) {
+            $this->devis->add($devis);
+            $devis->setExpediteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevis(Devis $devis): self
+    {
+        if ($this->devis->removeElement($devis)) {
+            // set the owning side to null (unless already changed)
+            if ($devis->getExpediteur() === $this) {
+                $devis->setExpediteur(null);
             }
         }
 

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
-use App\Form\DevisTypeTrajet;
+use App\Form\DevisTrajetType;
 use App\Repository\DevisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

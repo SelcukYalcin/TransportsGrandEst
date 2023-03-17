@@ -1,4 +1,30 @@
+<div class="devis-form">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
-{{ form_end(form) }}
+    {{ form_row(form.clientType) }}
+    {{ form_row(form.serviceType) }}
+
+
+    {{ form_row(form.expediteur) }}
+    {{ form_row(form.destinataire) }}
+    {# the data-index attribute is required for the JavaScript code below #}
+
+<ul class="marchandise"
+    data-index="{{ form.marchandise|length > 0 ? form.marchandise|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.marchandise.vars.prototype)|e('html_attr') }}">
+</ul>
+<button type="button" class="add_item_link" data-collection-holder-class="marchandise">Ajouter un colis</button>
+
+
+
+    {{ form_row(form.societe) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.telephone) }}
+
+    {{ form_row(form._token) }}
+
+<button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+    {# don't render unrendered fields #}
+    {{ form_end(form, {render_rest: false}) }}
+</div>

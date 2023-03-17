@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DevisRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,26 +22,42 @@ class Devis
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?User $membre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typeClient = null;
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $service = null;
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'devis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Expediteur $expediteur = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $marchandise = null;
+    #[ORM\ManyToOne(cascade: ['persist'],inversedBy: 'devis')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Destinataire $destinataire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $expediteur = null;
+    #[ORM\ManyToMany(targetEntity: Marchandise::class, inversedBy: 'devis', cascade: ['persist'])]
+    private Collection $marchandise;
 
-    #[ORM\Column(length: 255)]
-    private ?string $destinataire = null;
+    #[ORM\Column]
+    private ?bool $clientType = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $quantite = null;
+    #[ORM\Column]
+    private ?bool $serviceType = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $email = null;
+    private ?string $societe = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telephone = null;
+
+    public function __construct()
+    {
+        $this->marchandise = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,78 +88,6 @@ class Devis
         return $this;
     }
 
-    public function getTypeClient(): ?string
-    {
-        return $this->typeClient;
-    }
-
-    public function setTypeClient(string $typeClient): self
-    {
-        $this->typeClient = $typeClient;
-
-        return $this;
-    }
-
-    public function getService(): ?string
-    {
-        return $this->service;
-    }
-
-    public function setService(string $service): self
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getMarchandise(): ?string
-    {
-        return $this->marchandise;
-    }
-
-    public function setMarchandise(string $marchandise): self
-    {
-        $this->marchandise = $marchandise;
-
-        return $this;
-    }
-
-    public function getExpediteur(): ?string
-    {
-        return $this->expediteur;
-    }
-
-    public function setExpediteur(string $expediteur): self
-    {
-        $this->expediteur = $expediteur;
-
-        return $this;
-    }
-
-    public function getDestinataire(): ?string
-    {
-        return $this->destinataire;
-    }
-
-    public function setDestinataire(string $destinataire): self
-    {
-        $this->destinataire = $destinataire;
-
-        return $this;
-    }
-
-    public function getQuantite(): ?int
-    {
-        return $this->quantite;
-    }
-
-    public function setQuantite(?int $quantite): self
-    {
-        $this->quantite = $quantite;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -150,6 +96,126 @@ class Devis
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getExpediteur(): ?Expediteur
+    {
+        return $this->expediteur;
+    }
+
+    public function setExpediteur(?Expediteur $expediteur): self
+    {
+        $this->expediteur = $expediteur;
+
+        return $this;
+    }
+
+    public function getDestinataire(): ?Destinataire
+    {
+        return $this->destinataire;
+    }
+
+    public function setDestinataire(?Destinataire $destinataire): self
+    {
+        $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Marchandise>
+     */
+    public function getMarchandise(): Collection
+    {
+        return $this->marchandise;
+    }
+
+    public function addMarchandise(Marchandise $marchandise): self
+    {
+        if (!$this->marchandise->contains($marchandise)) {
+            $this->marchandise->add($marchandise);
+        }
+
+        return $this;
+    }
+
+    public function removeMarchandise(Marchandise $marchandise): self
+    {
+        $this->marchandise->removeElement($marchandise);
+
+        return $this;
+    }
+
+    public function isClientType(): ?bool
+    {
+        return $this->clientType;
+    }
+
+    public function setClientType(bool $clientType): self
+    {
+        $this->clientType = $clientType;
+
+        return $this;
+    }
+
+    public function isServiceType(): ?bool
+    {
+        return $this->serviceType;
+    }
+
+    public function setServiceType(bool $serviceType): self
+    {
+        $this->serviceType = $serviceType;
+
+        return $this;
+    }
+
+    public function getSociete(): ?string
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?string $societe): self
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

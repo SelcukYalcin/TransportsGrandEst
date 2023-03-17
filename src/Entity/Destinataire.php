@@ -30,9 +30,13 @@ class Destinataire
     #[ORM\OneToMany(mappedBy: 'destinataire', targetEntity: Marchandise::class)]
     private Collection $marchandises;
 
+    #[ORM\OneToMany(mappedBy: 'destinataire', targetEntity: Devis::class)]
+    private Collection $devis;
+
     public function __construct()
     {
         $this->marchandises = new ArrayCollection();
+        $this->devis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,5 +120,41 @@ class Destinataire
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevis(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getDestinataire() === $this) {
+                $devi->setDestinataire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return  $this->nom.
+                $this->ville;
     }
 }

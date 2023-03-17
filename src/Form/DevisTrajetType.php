@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function Sodium\add;
 
-class DevisTypeTrajet extends AbstractType
+class DevisTrajetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

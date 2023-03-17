@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MarchandiseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MarchandiseRepository::class)]
@@ -36,13 +38,14 @@ class Marchandise
     #[ORM\Column]
     private ?float $poids = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marchandises')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Expediteur $expediteur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marchandises')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Destinataire $destinataire = null;
+    #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'marchandise')]
+    private Collection $devis;
+
+    public function __construct()
+    {
+        $this->devis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -133,26 +136,30 @@ class Marchandise
         return $this;
     }
 
-    public function getExpediteur(): ?Expediteur
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
     {
-        return $this->expediteur;
+        return $this->devis;
     }
 
-    public function setExpediteur(?Expediteur $expediteur): self
+    public function addDevis(Devis $devi): self
     {
-        $this->expediteur = $expediteur;
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->addMarchandise($this);
+        }
 
         return $this;
     }
 
-    public function getDestinataire(): ?Destinataire
+    public function removeDevi(Devis $devi): self
     {
-        return $this->destinataire;
-    }
-
-    public function setDestinataire(?Destinataire $destinataire): self
-    {
-        $this->destinataire = $destinataire;
+        if ($this->devis->removeElement($devi)) {
+            $devi->removeMarchandise($this);
+        }
 
         return $this;
     }

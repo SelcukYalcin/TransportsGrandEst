@@ -3,19 +3,7 @@
 {% block title %}Hello{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
 
-        .example-wrapper code {
-            background: #c925a3;
-            padding: 2px 6px;
-        }
-    </style>
 
     <div class="example-wrapper">
         <h2><a href="{{ path('app_devis_new') }}" class="btn btn-warning">Demander un devis</a></h2>
@@ -27,44 +15,6 @@
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info">Liste des utilisateurs</a></h3>
         {% endif %}
     </div>
-    <div class="container-card1">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Professionnel</h5>
-                <p class="card-text">Vous êtes un professionnel</p>
-                <a href="" class="btn btn-primary">Continuer</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Particulier</h5>
-                <p class="card-text">Vous êtes un particulier</p>
-                <a href="" class="btn btn-primary">Continuer</a>
-            </div>
-        </div>
-    </div>
-    <div class="container-card2">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Express</h5>
-                <p class="card-text">Délai d'intervention : 4 heures</p>
-                <a href="" class="btn btn-primary">Continuer</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Standard</h5>
-                <p class="card-text">Délai d'intervention : 24 heures</p>
-                <a href="" class="btn btn-primary">Continuer</a>
-            </div>
-        </div>
-    </div>
-    <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary">Expéditeurs</a>
-    <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary">Créer un expéditeur</a><br>
-    <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary">Destinataires</a>
-    <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary">Créer un destinataire</a><br>
-    <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary">Marchandises</a>
-    <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary">Créer une marchandise</a>
 
 
 

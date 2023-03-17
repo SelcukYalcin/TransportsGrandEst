@@ -20,8 +20,10 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'attr' =>[
                 'label' => 'Email',
                 'required' => true,
+                'class' => 'form-control']
             ])
             ->add('agreeTerms', CheckboxType::class,
             [
@@ -45,8 +47,8 @@ class RegistrationFormType extends AbstractType
                 'first_options' =>
                 [
                     'required' => true,
-                    'label' => 'Mot de Passe ',
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'label' => 'Mot de Passe',
+                    'attr' => ['autocomplete' => 'new-password', 'class'=> 'form-control'],
                     'constraints' =>
                     [
                         new NotBlank(
@@ -64,7 +66,8 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' =>
                 [
-                    'label' => 'Répétez le Mot de Passe '
+                    'attr'=>[ 'class' =>'form-control',
+                    'label' => 'Répétez le Mot de Passe']
                 ],
             ]);;
     }

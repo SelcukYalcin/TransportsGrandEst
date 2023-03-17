@@ -18,7 +18,7 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="container">
+<body>
 <header>
     <ul>
         <li>
@@ -57,7 +57,7 @@
                 <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Reseau</a></button>
             </li>
             <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Devis</a></button>
+                <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
             </li>
         </ul>
     </div>
