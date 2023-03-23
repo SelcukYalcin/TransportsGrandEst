@@ -7,10 +7,7 @@ use App\Entity\Devis;
 use App\Entity\Expediteur;
 use App\Entity\Marchandise;
 use App\Entity\User;
-use App\Form\DestinataireType;
 use App\Form\DevisType;
-use App\Form\ExpediteurType;
-use App\Form\MarchandiseType;
 use App\Form\UserType;
 use App\Repository\DevisRepository;
 use App\Repository\UserRepository;
@@ -26,8 +23,8 @@ class DevisController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        DevisRepository $devisRepository,
-        UserRepository  $userRepository
+        DevisRepository                         $devisRepository,
+        UserRepository                          $userRepository
     )
     {
     }
@@ -45,8 +42,7 @@ class DevisController extends AbstractController
         }
 
         return $this->render('devis/index.html.twig', [
-            'devis' => $devis,
-
+            'devis' => $devis
         ]);
     }
 
@@ -59,6 +55,9 @@ class DevisController extends AbstractController
         $expediteur->addDevis($devi);
         $destinataire = new Destinataire();
         $destinataire->addDevis($devi);
+        $marchandise = new Marchandise();
+        $marchandise->addDevis($devi);
+
 
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
@@ -74,30 +73,6 @@ class DevisController extends AbstractController
             return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
         }
 
-//        $expediteur = new Expediteur();
-//        $formExpediteur = $this->createForm(ExpediteurType::class, $expediteur);
-//        $formExpediteur->handleRequest($request);
-//        if ($formExpediteur->isSubmitted() && $formExpediteur->isValid()) {
-//            $this->em->persist($expediteur);
-//            $this->em->flush();
-//        }
-//
-//        $destinataire = new Destinataire();
-//        $formDestinataire = $this->createForm(DestinataireType::class, $destinataire);
-//        $formDestinataire->handleRequest($request);
-//        if ($formDestinataire->isSubmitted() && $formDestinataire->isValid()) {
-//            $this->em->persist($destinataire);
-//            $this->em->flush();
-//        }
-//
-//        $marchandise = new Marchandise();
-//        $formMarchandise = $this->createForm(MarchandiseType::class, $marchandise);
-//        $formMarchandise->handleRequest($request);
-//        if ($formMarchandise->isSubmitted() && $formMarchandise->isValid()) {
-//            $this->em->persist($marchandise);
-//            $this->em->flush();
-//        }
-//
 //        $user = new User();
 //        $formUser = $this->createForm(UserType::class, $user);
 //        $formUser->handleRequest($request);
@@ -109,9 +84,6 @@ class DevisController extends AbstractController
         return $this->renderForm('devis/new.html.twig', [
             'devi' => $devi,
             'form' => $form,
-//            'formExpediteur' => $formExpediteur,
-//            'formDestinataire' => $formDestinataire,
-//            'formMarchandise' => $formMarchandise,
 //            'formUser' => $formUser
         ]);
     }

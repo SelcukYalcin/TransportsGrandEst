@@ -27,15 +27,15 @@ class Expediteur
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\OneToMany(mappedBy: 'expéditeur', targetEntity: Marchandise::class)]
-    private Collection $marchandises;
+//    #[ORM\OneToMany(mappedBy: 'expéditeur', targetEntity: Marchandise::class)]
+//    private Collection $marchandises;
 
     #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Devis::class)]
     private Collection $devis;
 
     public function __construct()
     {
-        $this->marchandises = new ArrayCollection();
+//        $this->marchandises = new ArrayCollection();
         $this->devis = new ArrayCollection();
     }
 
@@ -92,35 +92,35 @@ class Expediteur
         return $this;
     }
 
-    /**
-     * @return Collection<int, Marchandise>
-     */
-    public function getMarchandise(): Collection
-    {
-        return $this->marchandises;
-    }
-
-    public function addMarchandise(Marchandise $marchandise): self
-    {
-        if (!$this->marchandises->contains($marchandise)) {
-            $this->marchandises->add($marchandise);
-            $marchandise->setExpediteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMarchandise(Marchandise $marchandise): self
-    {
-        if ($this->marchandises->removeElement($marchandise)) {
-            // set the owning side to null (unless already changed)
-            if ($marchandise->getExpediteur() === $this) {
-                $marchandise->setExpediteur(null);
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection<int, Marchandise>
+//     */
+//    public function getMarchandise(): Collection
+//    {
+//        return $this->marchandises;
+//    }
+//
+//    public function addMarchandise(Marchandise $marchandise): self
+//    {
+//        if (!$this->marchandises->contains($marchandise)) {
+//            $this->marchandises->add($marchandise);
+//            $marchandise->setExpediteur($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeMarchandise(Marchandise $marchandise): self
+//    {
+//        if ($this->marchandises->removeElement($marchandise)) {
+//            // set the owning side to null (unless already changed)
+//            if ($marchandise->getExpediteur() === $this) {
+//                $marchandise->setExpediteur(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, Devis>
@@ -150,5 +150,10 @@ class Expediteur
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return  $this->nom;
     }
 }

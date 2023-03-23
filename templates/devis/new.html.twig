@@ -4,100 +4,10 @@
 
 {% block body %}
     <h1 class="badge bg-info">Demandez votre Devis</h1>
-
-
-
     {{ include('devis/_form.html.twig') }}
-
-
-{#    <a href="{{ path('app_devis_index') }}" class="btn btn-secondary">Back to list</a>#}
-{#    <div class="container-card1">#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Professionnel</h5>#}
-{#                <p class="card-text">Vous êtes un professionnel</p>#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Particulier</h5>#}
-{#                <p class="card-text">Vous êtes un particulier</p>#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="container-card2">#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Express</h5>#}
-{#                <p class="card-text">Délai d'intervention : 4 heures</p>#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Standard</h5>#}
-{#                <p class="card-text">Délai d'intervention : 24 heures</p>#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#        <div>#}
-{#            <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary">Expéditeurs</a>#}
-{#            <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary">Créer un expéditeur</a><br>#}
-{#            <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary">Destinataires</a>#}
-{#            <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary">Créer un destinataire</a><br>#}
-{#            <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary">Marchandises</a>#}
-{#            <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary">Créer une marchandise</a>#}
-{#        </div>#}
-
-{#    <div class="trajet">#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Départ</h5>#}
-{#                {{ form_start(formExpediteur) }}#}
-{#                {{ form_end(formExpediteur) }}#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Arrivée</h5>#}
-{#                {{ form_start(formDestinataire) }}#}
-{#                {{ form_end(formDestinataire) }}#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-{#    <div class="info-marchandise">#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Informations Marchandise</h5>#}
-{#                {{ form_start(formMarchandise) }}#}
-{#                {{ form_end(formMarchandise) }}#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-{#    <div class="coordonnees">#}
-{#        <div class="card">#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">Coordonnées</h5>#}
-{#                   {{ include('devis/_form.html.twig') }}#}
-{#                <a href="" class="btn btn-primary">Continuer</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-
-
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('devis') }}
-
 {% endblock %}

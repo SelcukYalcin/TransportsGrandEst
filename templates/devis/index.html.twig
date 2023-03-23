@@ -7,31 +7,32 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>N° de Devis</th>
-                <th>Date de validité</th>
-                <th>Expéditeur</th>
-                <th>Destinataire</th>
-                <th>Marchandise</th>
-                <th>Type de Client</th>
-                <th>Service</th>
-                <th>Membre</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>N° de Devis</th>
+            <th>Date de validité</th>
+            <th>Expéditeur</th>
+            <th>Destinataire</th>
+            <th>Marchandise</th>
+            <th>Type de Client</th>
+            <th>Service</th>
+            <th>Membre</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for devi in devis %}
+            {% dump(devi) %}
             <tr>
                 <td><span class="badge bg-secondary">{{ devi.id }}</td>
                 <td><span class="badge bg-info">{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
-{#                <td><span class="badge bg-secondary">{{ devi.expediteur }}</td>#}
+                <td><span class="badge bg-secondary">{{ devi.expediteur }}</td>
                 <td><span class="badge bg-secondary">{{ devi.destinataire }}</td>
-{#                <td><span class="badge bg-secondary">{{ devi.marchandise }}</td>#}
-{#                <td><span class="badge bg-secondary">{{ devi.typeClient }}</td>#}
-{#                <td><span class="badge bg-secondary">{{ devi.service }}</td>#}
-
-
-
+                <td><span class="badge bg-secondary">
+                    {% for marchandise in devi.getMarchandise %}
+                        {{ marchandise.getConditionnement }}
+                    {% endfor %}</td>
+                <td><span class="badge bg-secondary">{{ devi.clientType }}</td>
+                <td><span class="badge bg-secondary">{{ devi.serviceType }}</td>
                 {% if devi.membre %}
                     <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
                 {% else %}
@@ -41,7 +42,6 @@
                     <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="btn btn-info">Détails</a>
                     <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('devis/_delete_form.html.twig') }}
-
                 </td>
             </tr>
         {% else %}

@@ -9,9 +9,12 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Membre</th>
                 <th>Expéditeur</th>
                 <th>Destinataire</th>
-                <th>Membre</th>
+                <th>Service</th>
+                <th>Date d'enlèvement</th>
+                <th>Date de livraison</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,9 +22,12 @@
         {% for livraison in livraisons %}
             <tr>
                 <td><span class="badge bg-secondary">{{ livraison.id }}</span></td>
+                <td><span class="badge bg-success">{{ livraison.membre.email }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.expediteur }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.destinataire }}</span></td>
-                <td><span class="badge bg-success">{{ livraison.membre.email }}</span></td>
+                <td><span class="badge bg-info">{{ livraison.serviceLivraison }}</span></td>
+                <td><span class="badge bg-info">{{ livraison.dateEnlevement|date('d/m/Y H:i:s')   }}</span></td>
+                <td><span class="badge bg-info">{{ livraison.dateLivree |date('d/m/Y H:i:s')  }}</span></td>
                 <td>
                     <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}" class="btn btn-info">Détails</a>
                     <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}" class="btn btn-warning">Modifier</a>

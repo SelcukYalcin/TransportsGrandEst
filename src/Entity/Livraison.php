@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\LivraisonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
@@ -27,6 +28,15 @@ class Livraison
 
     #[ORM\OneToMany(mappedBy: 'livraison', targetEntity: Marchandise::class)]
     private Collection $marchandises;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateEnlevement = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateLivree = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $serviceLivraison = null;
 
     public function __construct()
     {
@@ -100,6 +110,42 @@ class Livraison
                 $marchandise->setLivraison(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateEnlevement(): ?\DateTimeInterface
+    {
+        return $this->dateEnlevement;
+    }
+
+    public function setDateEnlevement(\DateTimeInterface $dateEnlevement): self
+    {
+        $this->dateEnlevement = $dateEnlevement;
+
+        return $this;
+    }
+
+    public function getDateLivree(): ?\DateTimeInterface
+    {
+        return $this->dateLivree;
+    }
+
+    public function setDateLivree(\DateTimeInterface $dateLivree): self
+    {
+        $this->dateLivree = $dateLivree;
+
+        return $this;
+    }
+
+    public function getServiceLivraison(): ?string
+    {
+        return $this->serviceLivraison;
+    }
+
+    public function setServiceLivraison(string $serviceLivraison): self
+    {
+        $this->serviceLivraison = $serviceLivraison;
 
         return $this;
     }

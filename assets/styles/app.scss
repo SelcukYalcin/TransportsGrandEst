@@ -1,0 +1,179 @@
+@import 'bootstrap';
+
+* {
+  box-sizing: border-box;
+  margin: auto;
+}
+
+body {
+  background-color: #fdfdfd;
+  display: block;
+}
+
+.logo {
+
+}
+
+li {
+  list-style: none;
+}
+
+
+h5 {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #0dcaf0;
+
+}
+
+.required:not(.radio):after {
+  content: "*";
+  color: red;
+}
+
+.alert.alert-success {
+  color: green;
+}
+
+.alert.alert-danger {
+  color: red;
+}
+
+header ul {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #3177fa;
+  padding: 10px;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 0;
+  border: solid 1px #d2d2d2;
+}
+
+nav ul li {
+  border-left: 1px solid #d2d2d2;
+  border-right: 1px solid #d2d2d2;
+}
+
+.hero {
+  padding: 200px 100px;
+  z-index: -1;
+  background-image: url('/assets/images/TGEE1.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.radio {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #0dcaf0;
+
+}
+
+.client-type {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: 50px;
+}
+
+.service-type {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: 50px;
+}
+
+.select-type {
+  display: flex;
+}
+
+.expediteur {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.destinataire {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.trajet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px 20px;
+}
+
+.add_item_link {
+  border: solid 1px #d2d2d2;
+  border-radius: 10px;
+}
+
+.marchandise {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.info-marchandise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.coordonnees {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px 0;
+
+}
+
+.form-coordonnees {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+
+}
+
+.button-envoyer {
+  text-align: center;
+}
+
+.devis-form {
+  margin-bottom: 72px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #314cfa;
+  color: white;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.footer ul {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 0;
+  width: 66%;
+  padding-left: 0;
+}

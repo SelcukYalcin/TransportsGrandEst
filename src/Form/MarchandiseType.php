@@ -14,44 +14,44 @@ class MarchandiseType extends AbstractType
     {
         $builder
             ->add('conditionnement', TextType::class, [
+                'label' => 'Conditionnement',
                 'attr' => [
-                    'label' => 'Conditionnement',
                     'class' => 'form-control'
                 ]
             ])
             ->add('typeMarchandise', TextType::class, [
+                'label' => 'Type de marchandise',
                 'attr' => [
-                    'label' => 'Type de marchandise',
                     'class' => 'form-control'
                 ]
             ])
             ->add('qte', TextType::class, [
+                'label' => 'Quantité',
                 'attr' => [
-                    'label' => 'Quantité',
                     'class' => 'form-control'
                 ]
             ])
             ->add('longueur', TextType::class, [
+                'label' => 'Longueur',
                 'attr' => [
-                    'label' => 'Longueur',
                     'class' => 'form-control'
                 ]
             ])
             ->add('largeur', TextType::class, [
+                'label' => 'Largeur',
                 'attr' => [
-                    'label' => 'Largeur',
                     'class' => 'form-control'
                 ]
             ])
             ->add('hauteur', TextType::class, [
+                'label' => 'Hauteur',
                 'attr' => [
-                    'label' => 'Hauteur',
                     'class' => 'form-control'
                 ]
             ])
             ->add('poids', TextType::class, [
+                'label' => 'Poids',
                 'attr' => [
-                    'label' => 'Poids',
                     'class' => 'form-control'
                 ]
             ])
