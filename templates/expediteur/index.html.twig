@@ -25,8 +25,8 @@
                 <td>{{ expediteur.codePostal }}</td>
                 <td>{{ expediteur.ville }}</td>
                 <td>
-                    <a href="{{ path('app_expediteur_show', {'id': expediteur.id}) }}">show</a>
-                    <a href="{{ path('app_expediteur_edit', {'id': expediteur.id}) }}">edit</a>
+                    <a href="{{ path('app_expediteur_show', {'id': expediteur.id}) }}"><i class="fa-solid fa-info" style="color: #000000;"></i></a>
+                    <a href="{{ path('app_expediteur_edit', {'id': expediteur.id}) }}"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
                 </td>
             </tr>
         {% else %}

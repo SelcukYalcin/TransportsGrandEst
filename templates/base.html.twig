@@ -18,11 +18,11 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body>
+<body class="container">
 <header>
     <ul>
         <li>
-            <a href="{{ path('app_home') }}" class="logo"><img src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
+            <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
         </li>
         <li>
             {% if app.user %}
@@ -40,7 +40,7 @@
     </ul>
 </header>
 <nav>
-    <div class="container">
+    <div>
         <ul>
             <li>
                 <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info"><i
@@ -63,7 +63,7 @@
     </div>
 </nav>
 
-<section class="container">
+<section>
 
     {#    {% if app.user %} #}
     {#        <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p><br> #}
@@ -78,11 +78,10 @@
 
     {% block body %}{% endblock %}
 </section>
-<div class="footer">
-    <div class="container">
+<footer>
         <ul>
             <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">LOGO</a></button>
+                <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
             </li>
             <li>
                 <i class="fa-brands fa-square-twitter fa-2xl"></i>
@@ -97,7 +96,6 @@
                 <i class="fa-solid fa-copyright fa-2xl"></i>
             </li>
         </ul>
-    </div>
-</div>
+</footer>
 </body>
 </html>

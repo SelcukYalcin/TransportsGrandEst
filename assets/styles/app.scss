@@ -4,27 +4,37 @@
   box-sizing: border-box;
   margin: auto;
 }
-
+ul {
+  margin-bottom: 0;
+}
 body {
-  background-color: #fdfdfd;
+
+  //background: url('/assets/images/TGEE1.jpg') no-repeat center center fixed ;
+.img{
+  opacity: 0.75;
+}
+  background-size: cover;
   display: block;
+  height: 100vh;
+  overflow: scroll;
 }
 
 .logo {
-
+  max-width: 80px;
+  border: solid 1px #d2d2d2;
+  border-radius: 10px;
+  padding: 5px 5px;
 }
 
 li {
   list-style: none;
 }
 
-
 h5 {
   border: solid 1px #d2d2d2;
   padding: 10px 20px;
   border-radius: 10px;
   background-color: #0dcaf0;
-
 }
 
 .required:not(.radio):after {
@@ -51,7 +61,7 @@ nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-left: 0;
+  background-color: #3177fa;
   border: solid 1px #d2d2d2;
 }
 
@@ -115,14 +125,9 @@ nav ul li {
   margin: 50px 20px;
 }
 
-.add_item_link {
-  border: solid 1px #d2d2d2;
-  border-radius: 10px;
-}
-
 .marchandise {
   border: solid 1px #d2d2d2;
-  padding: 20px 50px;
+  padding: 0px 50px;
   border-radius: 10px;
   margin: 20px 0;
 }
@@ -132,6 +137,11 @@ nav ul li {
   flex-direction: column;
   align-items: center;
   margin: 20px 0;
+}
+
+.add_item_link {
+  border: solid 1px #d2d2d2;
+  border-radius: 10px;
 }
 
 .coordonnees {
@@ -146,7 +156,7 @@ nav ul li {
   border: solid 1px #d2d2d2;
   padding: 10px 20px;
   border-radius: 10px;
-  margin: 20px 0;
+  //margin: 20px 0;
 
 }
 
@@ -158,22 +168,14 @@ nav ul li {
   margin-bottom: 72px;
 }
 
-.footer {
-  position: fixed;
-  left: 0;
+footer {
   bottom: 0;
-  background-color: #314cfa;
-  color: white;
-  margin: 0;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  position: sticky;
 }
 
-.footer ul {
+footer ul {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 0;
-  width: 66%;
-  padding-left: 0;
+  background-color: #3177fa;
+  padding: 5px;
 }

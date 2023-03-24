@@ -29,8 +29,8 @@
                 <td><span class="badge bg-info">{{ livraison.dateEnlevement|date('d/m/Y H:i:s')   }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.dateLivree |date('d/m/Y H:i:s')  }}</span></td>
                 <td>
-                    <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}" class="btn btn-info">Détails</a>
-                    <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}" class="btn btn-info"><i class="fa-solid fa-info" style="color: #000000;"></i></a>
+                    <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
                     {{ include('livraison/_delete_form.html.twig') }}
 
                 </td>

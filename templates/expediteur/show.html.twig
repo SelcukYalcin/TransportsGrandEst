@@ -30,9 +30,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_expediteur_index') }}">back to list</a>
+    <a href="{{ path('app_expediteur_index') }}">Retour à la liste</a><br>
 
-    <a href="{{ path('app_expediteur_edit', {'id': expediteur.id}) }}">edit</a>
+
+    <a href="{{ path('app_expediteur_edit', {'id': expediteur.id}) }}"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
 
     {{ include('expediteur/_delete_form.html.twig') }}
 {% endblock %}
