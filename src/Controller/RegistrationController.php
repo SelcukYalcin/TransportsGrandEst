@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Si il n'y a aucun utilisateur, alors on créé l'utilisateur admin
+            // Si il n'y a aucun utilisateur, alors on crée l'utilisateur admin
             if (count($userRepository->findAll()) === 0) {
                 $user->setRoles([
                     'ROLE_USER',

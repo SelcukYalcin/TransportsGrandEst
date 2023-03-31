@@ -69,8 +69,8 @@ class DevisController extends AbstractController
                 $devi->setMembre($this->getUser());
             }
             $devisRepository->save($devi, true);
-
-            return $this->redirectToRoute('app_devis_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(type: "success", message: "Votre demande de devis a été enregistré, elle sera traitée dans les plus brefs délais");
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
 //        $user = new User();
