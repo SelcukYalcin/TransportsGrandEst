@@ -37,15 +37,16 @@ class DevisController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
             //Afficher tous les devis
             $data = $devisRepository->findAll();
-            $devis = $paginatorInterface->paginate(
-                $data,
-                $request->query->getInt('page', 1),5
-            );
 
         } else {
             // afficher que les devis du user connecté
-            $devis = $this->getUser()->getDevis();
+            $data = $this->getUser()->getDevis();
         }
+
+        $devis = $paginatorInterface->paginate(
+            $data,
+            $request->query->getInt('page', 1), 5
+        );
 
         return $this->render('devis/index.html.twig', [
             'devis' => $devis
