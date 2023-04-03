@@ -38,7 +38,7 @@ class Mailer {
             // path of the Twig template to render
             ->htmlTemplate($template)
             // pass variables (name => value) to the template
-            ->context($context)
+            ->context($context) 
             ;
         $this->mailer->send($email);
     }

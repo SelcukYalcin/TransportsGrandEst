@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Destinataire;
+use App\Entity\User;
 use App\Entity\Devis;
+use App\Form\UserType;
+use App\Form\DevisType;
 use App\Entity\Expediteur;
 use App\Entity\Marchandise;
-use App\Entity\User;
-use App\Form\DevisType;
-use App\Form\UserType;
-use App\Repository\DevisRepository;
+use App\Entity\Destinataire;
 use App\Repository\UserRepository;
+use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/devis')]
@@ -30,12 +31,17 @@ class DevisController extends AbstractController
     }
 
     #[Route('/list', name: 'app_devis_index', methods: ['GET'])]
-    public function index(DevisRepository $devisRepository, UserRepository $userRepository): Response
+    public function index(DevisRepository $devisRepository, Request $request, UserRepository $userRepository, PaginatorInterface $paginatorInterface): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($this->isGranted('ROLE_ADMIN')) {
             //Afficher tous les devis
-            $devis = $devisRepository->findAll();
+            $data = $devisRepository->findAll();
+            $devis = $paginatorInterface->paginate(
+                $data,
+                $request->query->getInt('page', 1),5
+            );
+
         } else {
             // afficher que les devis du user connecté
             $devis = $this->getUser()->getDevis();

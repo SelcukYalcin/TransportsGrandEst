@@ -10,13 +10,14 @@ ul {
 body {
 
   //background: url('/assets/images/TGEE1.jpg') no-repeat center center fixed ;
-.img{
-  opacity: 0.75;
-}
   background-size: cover;
   display: block;
   height: 100vh;
   overflow: scroll;
+}
+
+.img{
+  opacity: 0.75;
 }
 
 .logo {

@@ -31,8 +31,18 @@
                     {% for marchandise in devi.getMarchandise %}
                         {{ marchandise.getConditionnement }}
                     {% endfor %}</td>
-                <td><span class="badge bg-secondary">{{ devi.clientType }}</td>
-                <td><span class="badge bg-secondary">{{ devi.serviceType }}</td>
+
+                <td>
+                    <p class="badge bg-warning">
+                        {{ devi.clientTypeText }}
+                    </p>
+                </td>
+                <td>
+                    <p class="badge bg-warning">
+                        {{ devi.serviceTypeText }}
+                    </p>
+                    </td>
+                    {# <span class="badge bg-secondary">{{ devi.serviceType }}</td> #}
                 {% if devi.membre %}
                     <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
                 {% else %}
@@ -49,8 +59,12 @@
                 <td colspan="3" class="badge bg-warning">Aucun devis à afficher</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 
     <a href="{{ path('app_devis_new') }}" class="btn btn-warning">Créer un nouveau devis</a>
+        <div>
+            {{ knp_pagination_render(devis)}}
+        </div>
 {% endblock %}
