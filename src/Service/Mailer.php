@@ -29,7 +29,7 @@ class Mailer {
     /**
      * @throws TransportExceptionInterface
      */
-    public function sendCustomEmail($email, $template, $context,$subject,$from = 'no-reply@transports.com'): void
+    public function sendCustomEmail($email, $template, $context, $subject, $from = 'no-reply@transports.com'): void
     {
         $email = (new TemplatedEmail())
             ->from($from)

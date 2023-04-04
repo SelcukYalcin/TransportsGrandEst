@@ -9,11 +9,13 @@ use App\Form\DevisType;
 use App\Entity\Expediteur;
 use App\Entity\Marchandise;
 use App\Entity\Destinataire;
+use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,7 +56,7 @@ class DevisController extends AbstractController
     }
 
     #[Route('/new', name: 'app_devis_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DevisRepository $devisRepository): Response
+    public function new(Request $request, DevisRepository $devisRepository, MailerInterface $mailer): Response
     {
         $devi = new Devis();
 
@@ -75,12 +77,23 @@ class DevisController extends AbstractController
             if ($this->getUser()) {
                 $devi->setMembre($this->getUser());
             }
+            $email = $form['email']->getData();
+            // dd($email);
+            // Envoie de Mail de notification [Nouvelle demande de devis]
+            $email = (new Email())
+                ->from($email)
+                ->to('contact@tgee.com')
+                ->subject('Nouvelle demande de devis')
+                ->text('Vous avez reçu une nouvelle demande de devis.');
+    
+            $mailer->send($email);
             $devisRepository->save($devi, true);
             $this->addFlash(type: "success", message: "Votre demande de devis a été enregistré, elle sera traitée dans les plus brefs délais");
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
-
-//        $user = new User();
+        
+        //        $user = new User();
+        // Récupérer les données du formulaire
 //        $formUser = $this->createForm(UserType::class, $user);
 //        $formUser->handleRequest($request);
 //        if ($formUser->isSubmitted() && $formUser->isValid()) {
