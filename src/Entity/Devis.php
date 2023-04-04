@@ -160,6 +160,15 @@ class Devis
         return $this;
     }
 
+    public function getClientTypeText() : string 
+    {
+        $clientType = "Particulier";
+        if($this->clientType) {
+            $clientType = "Professionnel";
+        }
+        return $clientType;
+    }
+
     public function isServiceType(): ?bool
     {
         return $this->serviceType;
@@ -171,7 +180,14 @@ class Devis
 
         return $this;
     }
-
+    public function getServiceTypeText() : string 
+    {
+        $serviceType = "Standard";
+        if($this->serviceType) {
+            $serviceType = "Express";
+        }
+        return $serviceType;
+    }
     public function getSociete(): ?string
     {
         return $this->societe;
