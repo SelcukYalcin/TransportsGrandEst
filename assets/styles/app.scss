@@ -8,16 +8,15 @@ ul {
   margin-bottom: 0;
 }
 body {
-
-  //background: url('/assets/images/TGEE1.jpg') no-repeat center center fixed ;
   background-size: cover;
   display: block;
-  height: 100vh;
-  overflow: scroll;
 }
 
-.img{
-  opacity: 0.75;
+#container {
+  z-index: -1;
+  // background-image: url('/assets/images/TGEE1.jpg');
+  background-repeat: no-repeat;
+  // background-size: cover;
 }
 
 .logo {
@@ -51,22 +50,32 @@ h5 {
   color: red;
 }
 
-header ul {
+#header {
   display: flex;
   justify-content: space-evenly;
-  background-color: #3177fa;
-  padding: 10px;
+  background-color: transparent;
+  padding: 15px;
+  align-items: center;
+
 }
 
-nav ul {
+.header-left {
+  margin-left: initial;
+}
+.header-right {
+  margin-right: initial;
+}
+
+#nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #3177fa;
+  background-color: transparent;
   border: solid 1px #d2d2d2;
+  padding: 0;
 }
 
-nav ul li {
+#nav ul li {
   border-left: 1px solid #d2d2d2;
   border-right: 1px solid #d2d2d2;
 }
@@ -76,7 +85,20 @@ nav ul li {
   z-index: -1;
   background-image: url('/assets/images/TGEE1.jpg');
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+}
+#main {
+  min-height:100%;
+  position:relative;
+  z-index: -1;
+  background-image: url('/assets/images/telephone.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom:100px;   /* Hauteur du pied de page */
+}
+
+.form-contact {
+  width: 40%;
 }
 
 .radio {
@@ -157,8 +179,6 @@ nav ul li {
   border: solid 1px #d2d2d2;
   padding: 10px 20px;
   border-radius: 10px;
-  //margin: 20px 0;
-
 }
 
 .button-envoyer {
@@ -169,14 +189,15 @@ nav ul li {
   margin-bottom: 72px;
 }
 
-footer {
+#footer {
   bottom: 0;
-  position: sticky;
+  position: absolute;
+  display: contents;
 }
 
-footer ul {
+#footer ul {
   display: flex;
   justify-content: space-evenly;
-  background-color: #3177fa;
+  background-color: black;
   padding: 5px;
 }

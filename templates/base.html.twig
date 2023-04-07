@@ -16,86 +16,73 @@
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+        {% endblock %}
 </head>
-<body class="container">
-<header>
-    <ul>
-        <li>
-            <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
-        </li>
-        <li>
-            {% if app.user %}
-                <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
-
-                <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
-                                class="fa-solid fa-right-from-bracket"></i></a></button>
-
-            {% else %}
-                <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a></button>
-                <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success"><i
-                                class="fa-solid fa-right-to-bracket"></i></a></button>
-            {% endif %}
-        </li>
-    </ul>
-</header>
-<nav>
-    <div>
-        <ul>
-            <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info"><i
-                                class="fa-solid fa-house"></i></a>
-                </button>
-            </li>
-            <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Société</a></button>
-            </li>
-            <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Services</a></button>
-            </li>
-            <li>
-                <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Reseau</a></button>
-            </li>
-            <li>
-                <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<section>
-
-    {#    {% if app.user %} #}
-    {#        <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p><br> #}
-    {#    {% endif %} #}
-    {% for type, messages in app.flashes('') %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}">
-                {{ message }}
+<body>
+    <div id= "container" >
+        <div id= "header">
+            <div class="header-left">
+                <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
             </div>
-        {% endfor %}
-    {% endfor %}
+            <div class="header-right">
+                {% if app.user %}
+                    <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
+                    <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
+                                    class="fa-solid fa-right-from-bracket"></i></a></button>
 
-    {% block body %}{% endblock %}
-</section>
-<footer>
-        <ul>
-            <li>
-                <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
-            </li>
-            <li>
-                <i class="fa-brands fa-square-twitter fa-2xl"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-square-facebook fa-2xl"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-square-instagram fa-2xl"></i>
-            </li>
-            <li>
-                <i class="fa-solid fa-copyright fa-2xl"></i>
-            </li>
-        </ul>
-</footer>
+                {% else %}
+                    <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a></button>
+                    <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success"><i
+                                    class="fa-solid fa-right-to-bracket"></i></a></button>
+                {% endif %}                
+            </div>
+        </div>
+        <div class="container" id="nav">
+            <div>
+                <ul>
+                    <li>
+                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info"><i
+                                        class="fa-solid fa-house"></i></a>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Société</a></button>
+                    </li>
+                    <li>
+                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Services</a></button>
+                    </li>
+                    <li>
+                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Reseau</a></button>
+                    </li>
+                    <li>
+                        <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+{% block body %}
+{% endblock %}
+        <div id="footer">
+            <div>
+                <ul>
+                    <li>
+                        <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
+                    </li>
+                    <li>
+                        <i class="fa-brands fa-square-twitter fa-2xl"></i>
+                    </li>
+                    <li>
+                        <i class="fa-brands fa-square-facebook fa-2xl"></i>
+                    </li>
+                    <li>
+                        <i class="fa-brands fa-square-instagram fa-2xl"></i>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-copyright fa-2xl"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

@@ -1,30 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello{% endblock %}
+{% block title %}TGEE{% endblock %}
 
 {% block body %}
-
-    <div class="hero">
-        <div class="hero-text">
-                <h2><a href="{{ path('app_devis_new') }}" class="btn btn-warning">Demander un devis</a></h2>
-        </div>
+<div class="hero">
+    <div class="hero-text">
+        <h2><a href="{{ path('app_devis_new') }}" class="btn btn-warning">Demander un devis</a></h2>
     </div>
-    <div>
-        {#        Si l'utilisateur est connecté #}
+    </div>
+    <div fa-list>
+        {# Si l'utilisateur est connecté #}
         {% if app.user %}
             <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Devis</a></h3>
             <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Livraisons</a></h3>
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Utilisateurs</a></h3>
         {% endif %}
     </div>
-
-    <div>
-        <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Expéditeurs</a><br>
-        <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
-        <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Destinataires</a><br>
-        <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
-        <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Marchandises</a><br>
-        <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a>
+    <div class="container" id="main">
+        
+        {% for type, messages in app.flashes('') %}
+        {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endfor %}
+        
+        {# <div>
+            <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Expéditeurs</a><br>
+            <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
+            <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Destinataires</a><br>
+            <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
+            <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Marchandises</a><br>
+            <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a>
+        </div> #}
     </div>
-
-{% endblock %}
+    <div class="form-contact">
+    <a href="{{ path('app_contact_form') }}" class="btn btn-warning">NOUS CONTACTER</a>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.message) }}       
+        <div class="button-envoyer">
+            <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+        </div>
+    {{ form_end(form) }}
+    </div>
+    {% endblock %}
