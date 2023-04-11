@@ -25,7 +25,7 @@
                 <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
             </div>
             <div class="header-right">
-                {% if is_granted('ROLE_USER') %}
+                {% if app.user %}
                     <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
                     <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
                                     class="fa-solid fa-right-from-bracket"></i></a></button>

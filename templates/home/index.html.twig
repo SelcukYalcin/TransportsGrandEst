@@ -10,21 +10,10 @@
     </div>
     <div fa-list>
         {# Si l'utilisateur est connecté #}
-        {% if app.user  %}
+        {% if app.user %}
             <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Devis</a></h3>
             <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Livraisons</a></h3>
-            {% if is_granted('ROLE_ADMIN') %}
-
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Utilisateurs</a></h3>
-            {% endif %}
-            <div>
-                <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">
-                    Mot de passe oublié
-                </a>
-            </div>
-            <a href="{{ path('app_userAccount_delete') }}" class="btn btn-secondary mt-3">
-                Supprimer mon compte
-            </a>
         {% endif %}
     </div>
     <div class="container" id="main">

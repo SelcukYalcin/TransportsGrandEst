@@ -4,26 +4,24 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\DevisRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
 use App\Service\UserService;
-use App\Repository\UserRepository;
-use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
 
-    private $mailer;
     private UserService $userService;
-    private $em;
+
     public function __construct(
         private UserRepository $userRepository, Mailer $mailer, EntityManagerInterface $em, UserService $userService)
     {
@@ -149,7 +147,8 @@ class UserController extends AbstractController
             'form' => $form->createView(),]);
     }
 
-    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[
+        Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository, DevisRepository $devisRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -173,33 +172,5 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    // #[Route('/delete_account', name: 'app_userAccount_delete')]
-    // public function deleteUser(EntityManagerInterface $em,Request $request, TokenStorageInterface $tokenStorage, DevisRepository $devisRepository): Response
-    // {
-        
-    //     $user = $this->getUser();
-    //     if ($user) {
-    //         $this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'));
-    //         // dd($request);
-    //         $devisToUpdate = $devisRepository->findBy([
-    //             'membre' => $user
-    //         ]);
-            
-    //         foreach ($devisToUpdate as $deviToUpdate) {
-    //             $deviToUpdate->setMembre(null);
-    //             $devisRepository->save($deviToUpdate, true);
-    //         }
-    //         // Invalidate the user's session
-    //         // $request->getSession()->invalidate();
-
-    //         // Remove the user's authentication token from the security context          
-
-    //         // $tokenStorage->setToken();
-
-    //         $em->remove($user);
-    //         $em->flush();           
-    //     }
-    //     return $this->redirectToRoute('app_home');
-    // }
 
 }
