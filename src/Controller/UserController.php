@@ -4,23 +4,27 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\DevisRepository;
-use App\Repository\UserRepository;
 use App\Service\Mailer;
 use App\Service\UserService;
+use App\Repository\UserRepository;
+use App\Repository\DevisRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
 
     private UserService $userService;
+    private $mailer;
+    private $em;
 
     public function __construct(
         private UserRepository $userRepository, Mailer $mailer, EntityManagerInterface $em, UserService $userService)
@@ -147,8 +151,7 @@ class UserController extends AbstractController
             'form' => $form->createView(),]);
     }
 
-    #[
-        Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository, DevisRepository $devisRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -170,6 +173,26 @@ class UserController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/{id}/suppresionProfil', name: 'profil_suppression')]
+    public function suppressionProfil(Request $request, User $user, TokenStorageInterface $tokenStorage): Response
+    {
+        // dump($this->container->get('security.token_storage')->getToken());
+        // dd($request->attributes->get('user')->getToken());
+
+        if ($request->attributes->get('user')->getToken()) {
+            $request->getSession()->invalidate();
+            $tokenStorage->setToken(null);
+
+            $this->em->remove($user);
+            $this->em->flush();
+
+        }
+        
+        $this->addFlash('success', 'Votre compte a bien été supprimée');
+        return $this->redirectToRoute('app_logout');
     }
 
 

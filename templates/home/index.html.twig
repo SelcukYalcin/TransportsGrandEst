@@ -13,7 +13,11 @@
         {% if app.user %}
             <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Devis</a></h3>
             <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Livraisons</a></h3>
+            {% if is_granted('ROLE_ADMIN') %}
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Utilisateurs</a></h3>
+            {% endif %}
+            <h3><a href="{{ path('profil_suppression', {'id': app.user.id}) }}" class="btn btn-danger">Supprimer mon compte</a></h3>
+
         {% endif %}
     </div>
     <div class="container" id="main">
