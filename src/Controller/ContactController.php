@@ -13,13 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
     #[Route('/', name: 'app_contact')]
-    public function index(Request $request): Response
+    public function index(Request $request, Contact $contact = null): Response
     {
-        $contact = new Contact();
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($request);
             // traitez les données soumises ici
             // envoyez le courriel, sauvegardez les données en base de données, etc.
             return $this->redirectToRoute('app_home');
@@ -32,13 +32,13 @@ class ContactController extends AbstractController
     }
 
     #[Route('/form', name: 'app_contact_form')]
-    public function contactForm(Request $request): Response
+    public function contactForm(Request $request, Contact $contact = null): Response
     {
-        $contact = new Contact();
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            
             // traitez les données soumises ici
             // envoyez le courriel, sauvegardez les données en base de données, etc.
             return $this->redirectToRoute('app_home');

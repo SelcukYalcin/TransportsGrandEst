@@ -7,6 +7,6 @@
 {#    data-index="{{ form.marchandise|length > 0 ? form.marchandise|last.vars.name + 1 : 0 }}"#}
 {#    data-prototype="{{ form_widget(form.marchandise.vars.prototype)|e('html_attr') }}">#}
 {#</ul>#}
-<button type="button" class="add_item_link" data-collection-holder-class="marchandise">Ajouter un colis</button>
-<button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+{# <button type="button" class="add_item_link" data-collection-holder-class="marchandise">Ajouter un colis</button> #}
 {{ form_end(form) }}
+<button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>

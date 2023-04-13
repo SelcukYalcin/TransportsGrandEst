@@ -13,6 +13,7 @@
         {% if app.user %}
             <h3><a href="{{ path('app_devis_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Devis</a></h3>
             <h3><a href="{{ path('app_livraison_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Livraisons</a></h3>
+            {# Si les droits ADMIN sont accordés#}
             {% if is_granted('ROLE_ADMIN') %}
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Utilisateurs</a></h3>
             {% endif %}
@@ -30,24 +31,37 @@
         {% endfor %}
         {% endfor %}
         
-        {# <div>
+        <div>
             <a href="{{ path('app_expediteur_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Expéditeurs</a><br>
             <a href="{{ path('app_expediteur_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
             <a href="{{ path('app_destinataire_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Destinataires</a><br>
             <a href="{{ path('app_destinataire_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a><br>
             <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Marchandises</a><br>
             <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a>
-        </div> #}
-    </div>
-    <div class="form-contact">
-    <a href="{{ path('app_contact_form') }}" class="btn btn-warning">NOUS CONTACTER</a>
-    {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.message) }}       
-        <div class="button-envoyer">
-            <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
         </div>
-    {{ form_end(form) }}
+         <div class="form-contact">
+        {# <a href="{{ path('app_contact_form') }}" class="btn btn-warning">NOUS CONTACTER</a> #}
+            {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.message) }}       
+                <div class="button-envoyer">
+                    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
     </div>
+    <div id="map">map</div>
+
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLÉ_D'API"></script>
+        <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: {lat: 48.8566, lng: 2.3522}
+            });
+        }
+        </script>
     {% endblock %}

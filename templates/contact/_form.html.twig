@@ -2,15 +2,12 @@
 
 {% block body %}
     <h1>Contactez-nous</h1>
-
     {{ form_start(form) }}
-
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
-    {{ form_row(form.message) }}
-    
+    {{ form_row(form.message) }}   
+    {{ form_end(form) }}
     <div class="button-envoyer">
         <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
     </div>
-    {{ form_end(form) }}
 {% endblock %}

@@ -179,8 +179,6 @@ class UserController extends AbstractController
     #[Route('/{id}/suppresionProfil', name: 'profil_suppression')]
     public function suppressionProfil(Request $request, User $user, TokenStorageInterface $tokenStorage): Response
     {
-        // dump($this->container->get('security.token_storage')->getToken());
-        // dd($request->attributes->get('user')->getToken());
 
         if ($request->attributes->get('user')->getToken()) {
             $request->getSession()->invalidate();

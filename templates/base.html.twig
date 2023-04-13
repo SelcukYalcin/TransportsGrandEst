@@ -14,12 +14,12 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+
+
 </head>
 <body>
     <div id= "container" >
+
         <div id= "header">
             <div class="header-left">
                 <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
@@ -69,6 +69,9 @@
                         <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
                     </li>
                     <li>
+                        <a href="">>conditon</a>
+                    </li>
+                    <li>
                         <i class="fa-brands fa-square-twitter fa-2xl"></i>
                     </li>
                     <li>
@@ -86,3 +89,7 @@
     </div>    
 </body>
 </html>
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+{% endblock %}
