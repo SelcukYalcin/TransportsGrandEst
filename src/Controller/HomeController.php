@@ -33,9 +33,8 @@ class HomeController extends AbstractController
             $email = (new Email())
             ->from($email)
             ->to('contact@tgee.com')
-            ->subject('Nouvelle demande de devis')
-            ->text('Vous avez reçu une nouvelle demande de devis.');
-    
+            ->subject('Nouvelle demande de contact')
+            ->text('Vous avez reçu une nouvelle demande de contact.');
             // envoyez le courriel, sauvegardez les données en base de données, etc.
             $mailer->send($email);
             // Message flash 

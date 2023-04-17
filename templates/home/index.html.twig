@@ -39,29 +39,39 @@
             <a href="{{ path('app_marchandise_index') }}" class="btn btn-secondary"><i class="fa-solid fa-list" style="color: #000000;"></i> Marchandises</a><br>
             <a href="{{ path('app_marchandise_new') }}" class="btn btn-secondary"><i class="fa-solid fa-square-plus" style="color: #000000;"></i></a>
         </div>
-         <div class="form-contact">
-        {# <a href="{{ path('app_contact_form') }}" class="btn btn-warning">NOUS CONTACTER</a> #}
-            {{ form_start(form) }}
-                {{ form_row(form.name) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.message) }}       
-                <div class="button-envoyer">
-                    <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
-                </div>
-            {{ form_end(form) }}
-        </div>
     </div>
-    <div id="map">map</div>
+    <div class="contact">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.9198576743747!2d7.733878115663614!3d48.55392847925878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796c99d69d89fab%3A0x124f6eb99c077bf3!2sTransports%20Grand-Est%20Express!5e0!3m2!1sfr!2sfr!4v1681483155276!5m2!1sfr!2sfr" 
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="form-contact">
+       {# <a href="{{ path('app_contact_form') }}" class="btn btn-warning">NOUS CONTACTER</a> #}
+           {{ form_start(form) }}
+               {{ form_row(form.name) }}
+               {{ form_row(form.email) }}
+               {{ form_row(form.message) }}       
+               <div class="button-envoyer">
+                   <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+               </div>
+           {{ form_end(form) }}
+       </div>
+    </div>
+    {# <div id="map">map</div> #}
 
     {% endblock %}
-    {% block javascripts %}
-        <script src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLÉ_D'API"></script>
+        {# {% block javascripts %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AAPK85f9714b92874f9aab71087db3c8e4759723PFbiHLkx6WEhQp3JI3763uxOpphv2jqDgNRRst05sZaHdCJmOF2UZ3riFWz0"></script>
         <script>
-        function initMap() {
+            var map = L.map('map').setView([48.59, 7.77], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+        </script>
+        {% endblock %} #}
+        {# function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             center: {lat: 48.8566, lng: 2.3522}
             });
-        }
-        </script>
-    {% endblock %}
+        } #}
+        

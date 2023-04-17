@@ -6,9 +6,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
           integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+          {# LEAFLET #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""/>
+           <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+        crossorigin=""></script>
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('/CSS/style.css') }}">
         {{ encore_entry_link_tags('app') }}
@@ -20,26 +27,26 @@
 <body>
     <div id= "container" >
 
-        <div id= "header">
-            <div class="header-left">
-                <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
-            </div>
+        {# <div id= "header"> #}
             <div class="header-right">
                 {% if app.user %}
-                    <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
-                    <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
-                                    class="fa-solid fa-right-from-bracket"></i></a></button>
-
-                {% else %}
-                    <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success">S'inscrire</a></button>
+                <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
+                <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
+                    class="fa-solid fa-right-from-bracket"></i></a></button>
+                    
+                    {% else %}
+                    <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success"><i class="fa-solid fa-user"></i></a></button>
                     <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success"><i
-                                    class="fa-solid fa-right-to-bracket"></i></a></button>
-                {% endif %}                
+                        class="fa-solid fa-right-to-bracket"></i></a></button>
+                        {% endif %}                
             </div>
-        </div>
-        <div class="container" id="nav">
+            {# </div> #}
+        <div class="" id="nav">
             <div>
                 <ul>
+                    <div class="nav-left">
+                        <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
+                    </div>
                     <li>
                         <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info"><i
                                         class="fa-solid fa-house"></i></a>
@@ -52,10 +59,10 @@
                         <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Services</a></button>
                     </li>
                     <li>
-                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Reseau</a></button>
+                        <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
                     </li>
                     <li>
-                        <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
+                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Contact</a></button>
                     </li>
                 </ul>
             </div>
@@ -63,13 +70,13 @@
 {% block body %}
 {% endblock %}
         <div id="footer">
-            <div>
+            <div class="footer">
                 <ul>
                     <li>
                         <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
                     </li>
                     <li>
-                        <a href="">>conditon</a>
+                        <a href="">conditions d'utilisations</a>
                     </li>
                     <li>
                         <i class="fa-brands fa-square-twitter fa-2xl"></i>

@@ -64,12 +64,12 @@ class RegistrationController extends AbstractController
                 $user->setIsVerified(true);
             } else {
 //-------------- Créer le token et le stocker en bdd
+//-------------- Envoi d'un email: un lien de confirmation qui contient un token (suite de charactere generé en aléatoire)
                 $this->userService->createTokenAndSendEmail($user);
             }
 
             $this->em->persist($user);
             $this->em->flush();
-//-------------- Envoi d'un email: un lien de confirmation qui contient un token (suite de charactere generé en aléatoire)
             $this->addFlash(type: "success", message: "Inscription réussie ! ");
 
             return $this->redirectToRoute('app_home');

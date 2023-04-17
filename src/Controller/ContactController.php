@@ -18,16 +18,13 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($request);
-            // traitez les données soumises ici
-            // envoyez le courriel, sauvegardez les données en base de données, etc.
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             return $this->redirectToRoute('app_home');
         }
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
             'form' => $form->createView(),
-
         ]);
     }
 
@@ -37,13 +34,10 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            // traitez les données soumises ici
-            // envoyez le courriel, sauvegardez les données en base de données, etc.
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             return $this->redirectToRoute('app_home');
         }
-
         return $this->render('contact/_form.html.twig', [
             'form' => $form->createView(),
         ]);

@@ -67,6 +67,10 @@ class Expediteur
 
         return $this;
     }
+    public function getAdresseComplete(): ?string
+    {
+        return $this->adresse. '[br]' . $this->codePostal. ' ' . $this->ville;
+    }
 
     public function getCodePostal(): ?string
     {
@@ -154,6 +158,6 @@ class Expediteur
 
     public function __toString()
     {
-        return  $this->nom;
+        return  $this->nom.'[br] '. $this->getAdresseComplete() ;
     }
 }

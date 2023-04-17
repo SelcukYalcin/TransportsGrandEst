@@ -177,10 +177,19 @@ class UserController extends AbstractController
 
 
     #[Route('/{id}/suppresionProfil', name: 'profil_suppression')]
-    public function suppressionProfil(Request $request, User $user, TokenStorageInterface $tokenStorage): Response
+    public function suppressionProfil(Request $request, User $user, TokenStorageInterface $tokenStorage, DevisRepository $devisRepository): Response
     {
 
         if ($request->attributes->get('user')->getToken()) {
+            $devisToUpdate = $devisRepository->findBy([
+                'membre' => $user
+            ]);
+
+            foreach ($devisToUpdate as $deviToUpdate) {
+                $deviToUpdate->setMembre(null);
+                $devisRepository->save($deviToUpdate, true);
+            }
+
             $request->getSession()->invalidate();
             $tokenStorage->setToken(null);
 

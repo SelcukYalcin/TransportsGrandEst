@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: auto;
 }
+// #94245c
 ul {
   margin-bottom: 0;
 }
@@ -13,10 +14,7 @@ body {
 }
 
 #container {
-  z-index: -1;
-  // background-image: url('/assets/images/TGEE1.jpg');
   background-repeat: no-repeat;
-  // background-size: cover;
 }
 
 .logo {
@@ -24,6 +22,11 @@ body {
   border: solid 1px #d2d2d2;
   border-radius: 10px;
   padding: 5px 5px;
+  background-color: #c9ad86;
+
+}
+.logo img {
+  background-color: #c9ad86;
 }
 
 li {
@@ -50,35 +53,35 @@ h5 {
   color: red;
 }
 
-#header {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: transparent;
-  padding: 15px;
-  align-items: center;
-
-}
-
 .header-left {
   margin-left: initial;
 }
 .header-right {
-  margin-right: initial;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  background-color: #94245c;
+}
+.header-right p {
+margin: 0;
 }
 
+#nav{
+  background-color: #94245c;
+}
 #nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   background-color: transparent;
-  border: solid 1px #d2d2d2;
+  // border: solid 1px #d2d2d2;
   padding: 0;
 }
 
-#nav ul li {
-  border-left: 1px solid #d2d2d2;
-  border-right: 1px solid #d2d2d2;
-}
+// #nav ul li {
+//   // border-left: 1px solid #d2d2d2;
+//   // border-right: 1px solid #d2d2d2;
+// }
 
 .hero {
   padding: 200px 100px;
@@ -101,7 +104,7 @@ h5 {
 
 .form-contact {
   width: 40%;
-  background-color: blueviolet;
+  background-color: #94245c;
   padding: 20px;
   margin-top: 50px;
   border-radius: 10px;
@@ -195,15 +198,22 @@ h5 {
   margin-bottom: 72px;
 }
 
+#map { 
+  height: 300px; 
+}
+.contact {
+  display: flex;
+  padding: 15px;
+}
+
 #footer {
-  bottom: 0;
-  position: absolute;
-  display: contents;
+  background-color: #94245c;
+  height: 150px;
 }
 
 #footer ul {
   display: flex;
   justify-content: space-evenly;
-  background-color: black;
   padding: 5px;
+  
 }

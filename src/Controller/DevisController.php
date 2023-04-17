@@ -59,52 +59,41 @@ class DevisController extends AbstractController
     public function new(Request $request, DevisRepository $devisRepository, MailerInterface $mailer): Response
     {
         $devi = new Devis();
-
         $expediteur = new Expediteur();
         $expediteur->addDevis($devi);
         $destinataire = new Destinataire();
         $destinataire->addDevis($devi);
         $marchandise = new Marchandise();
         $marchandise->addDevis($devi);
-
-
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $devi->setDateVal(new \DateTime('now + 1 month'));
-
             if ($this->getUser()) {
                 $devi->setMembre($this->getUser());
             }
             $email = $form['email']->getData();
-            // dd($email);
+            $data = $form->getData();
             // Envoie de Mail de notification [Nouvelle demande de devis]
             $email = (new Email())
-                ->from($email)
-                ->to('contact@tgee.com')
-                ->subject('Nouvelle demande de devis')
-                ->text('Vous avez reçu une nouvelle demande de devis.');
-    
+            ->from($email)
+            ->to('contact@tgee.com')
+            ->subject('Nouvelle demande de devis')
+            ->text('Vous avez reçu une nouvelle demande de devis.'. $devi->getExpediteur()->getNom())
+            ->html($this->renderView('devis/devismail.html.twig', ['data' => $data]));
+            // dd($data);
+
             $mailer->send($email);
             $devisRepository->save($devi, true);
             $this->addFlash(type: "success", message: "Votre demande de devis a été enregistré, elle sera traitée dans les plus brefs délais");
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
         
-        //        $user = new User();
-        // Récupérer les données du formulaire
-//        $formUser = $this->createForm(UserType::class, $user);
-//        $formUser->handleRequest($request);
-//        if ($formUser->isSubmitted() && $formUser->isValid()) {
-//            $this->em->persist($user);
-//            $this->em->flush();
-//        }
-
         return $this->renderForm('devis/new.html.twig', [
             'devi' => $devi,
             'form' => $form,
-//            'formUser' => $formUser
+
         ]);
     }
 

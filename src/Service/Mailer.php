@@ -23,7 +23,7 @@ class Mailer {
      */
     public function sendEmail($email, $token): void
     {
-        $this->sendCustomEmail($email,'emails/registration.html.twig', ['token' => $token],'Transports - Validation de l\'inscription');
+        $this->sendCustomEmail($email, 'emails/registration.html.twig', ['token' => $token],'Validation de l\'inscription');
     }
 
     /**

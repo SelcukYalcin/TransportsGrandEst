@@ -67,7 +67,10 @@ class Destinataire
 
         return $this;
     }
-
+    public function getAdresseComplete(): ?string
+    {
+        return $this->adresse. '[br] ' . $this->codePostal. ' [br]' . $this->ville;
+    }
     public function getCodePostal(): ?string
     {
         return $this->codePostal;
@@ -154,6 +157,6 @@ class Destinataire
 
     public function __toString()
     {
-        return  $this->nom;
+        return  $this->nom.'[br] '. $this->getAdresseComplete() ;
     }
 }
