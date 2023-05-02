@@ -32,7 +32,7 @@ class ResetPasswordFormType extends AbstractType
                                 [
                                     new NotBlank(
                                         [
-                                            'message' => 'Please enter a password',
+                                            'message' => 'Veillez entrer un mot de passe',
                                         ]),
                                     new Length(
                                         [

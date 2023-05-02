@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Bienvenue{% endblock %}</title>
+    {% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
           integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -16,42 +17,25 @@
         crossorigin=""></script>
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('/CSS/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('/styles/app.css') }}">
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
-
 
 
 </head>
 <body>
     <div id= "container" >
-
-        {# <div id= "header"> #}
-            <div class="header-right">
-                {% if app.user %}
-                <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
-                <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
-                    class="fa-solid fa-right-from-bracket"></i></a></button>
-                    
-                    {% else %}
-                    <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success"><i class="fa-solid fa-user"></i></a></button>
-                    <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success"><i
-                        class="fa-solid fa-right-to-bracket"></i></a></button>
-                        {% endif %}                
-            </div>
-            {# </div> #}
-        <div class="" id="nav">
-            <div>
+        <div class= "header">
+            <div class="header-left" >
                 <ul>
                     <div class="nav-left">
                         <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt="LOGO"></a>
                     </div>
-                    <li>
+                    {# <li>
                         <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info"><i
                                         class="fa-solid fa-house"></i></a>
                         </button>
-                    </li>
+                    </li> #}
                     <li>
                         <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Société</a></button>
                     </li>
@@ -62,9 +46,20 @@
                         <button class="btn"><a href="{{ path('app_devis_new') }}" class="btn btn-info">Devis</a></button>
                     </li>
                     <li>
-                        <button class="btn"><a href="{{ path('app_home') }}" class="btn btn-info">Contact</a></button>
+                        <button class="btn"><a href="{{ path('app_contact_form') }}" class="btn btn-info">Contact</a></button>
                     </li>
                 </ul>
+            </div>
+            <div class="header-right">
+                {% if app.user %}
+                    <p class="badge bg-dark">Bienvenue {{ app.user.userIdentifier }}</p>
+                    <button class="btn"><a href="{{ path('app_logout') }}" class="btn btn-warning"><i
+                    class="fa-solid fa-right-from-bracket"></i></a></button>                    
+                    {% else %}
+                    <button class="btn"><a href="{{ path('app_login') }}" class="btn btn-success"><i
+                        class="fa-solid fa-right-to-bracket"></i></a></button>
+                    <button class="btn"><a href="{{ path('app_register') }}" class="btn btn-success"><i class="fa-solid fa-user"></i></a></button>
+                {% endif %}                
             </div>
         </div>
 {% block body %}
@@ -73,11 +68,24 @@
             <div class="footer">
                 <ul>
                     <li>
+                        <a href="">Politique de Confidentialité</a>
+                    </li>
+                    <li>
+                        <a href="">La Société</a>
+                    </li>
+                    <li>
                         <a href="{{ path('app_home') }}"><img  class="logo" src="{{ asset('build/images/logo-tgge.a9233069.png') }}" alt=""></a>
                     </li>
                     <li>
-                        <a href="">conditions d'utilisations</a>
+                        <a href="">A Propos</a>
                     </li>
+                    <li>
+                        <a href="">Conditions d'Utilisations</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-2">          
+                <ul>
                     <li>
                         <i class="fa-brands fa-square-twitter fa-2xl"></i>
                     </li>
@@ -91,6 +99,9 @@
                         <i class="fa-solid fa-copyright fa-2xl"></i>
                     </li>
                 </ul>
+            </div>
+            <div class="footer-3">
+                <p> © Photo, Inc. 2023 </p>
             </div>
         </div>
     </div>    

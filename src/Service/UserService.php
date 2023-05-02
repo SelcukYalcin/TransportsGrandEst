@@ -21,7 +21,7 @@ class UserService
         $user->setToken($this->generateToken());
         // Assigne la date courante  date du token
         $user->setDateToken(new DateTime());
-
+        // Envoi de l'email
         $this->mailer->sendEmail($user->getEmail(), $user->getToken());
     }
 

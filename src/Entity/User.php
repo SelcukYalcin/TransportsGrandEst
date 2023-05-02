@@ -54,11 +54,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Livraison::class)]
     private Collection $livraisons;
 
+    #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Contact::class)]
+    private Collection $contacts;
+
 
     public function __construct()
     {
         $this->devis = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
 
@@ -274,6 +278,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getMembre() === $this) {
+                $contact->setMembre(null);
+            }
+        }
+
+        return $this;
     }
 
 }

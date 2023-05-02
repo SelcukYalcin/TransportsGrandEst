@@ -45,4 +45,7 @@ const addMarchandiseFormDeleteLink = (item) => {
         item.remove();
     });
 }
-
+const myField = document.getElementById('password');
+myField.addEventListener('mouseleave', function() {
+  alert('Vous avez quitté le champ de formulaire.');
+});

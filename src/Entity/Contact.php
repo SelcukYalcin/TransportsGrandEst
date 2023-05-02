@@ -23,6 +23,9 @@ class Contact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    private ?User $membre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Contact
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getMembre(): ?User
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?User $membre): self
+    {
+        $this->membre = $membre;
 
         return $this;
     }

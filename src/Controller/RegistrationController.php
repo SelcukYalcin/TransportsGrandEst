@@ -40,16 +40,16 @@ class RegistrationController extends AbstractController
         UserRepository              $userRepository
     ): Response
     {
-//-------------- On crée un new User et on le met en bdd new user est à l'etat non verifié
+        //-------------- On crée un new User (à l'etat non verifié)
         $user = new User();
-//-------------- Afficher formulaire
+        //-------------- Crée et renvoie une instance de formulaire à partir du type de formulaire.
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-//-------------- Si formulaire submitted && is valid
+        //-------------- Si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // coder le mot de passe en clair
             $user->setPassword(
-                $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(//Hache le mot de passe en clair de l'utilisateur donné.
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -63,15 +63,18 @@ class RegistrationController extends AbstractController
                 ]);
                 $user->setIsVerified(true);
             } else {
-//-------------- Créer le token et le stocker en bdd
+//-------------- Créer le token
 //-------------- Envoi d'un email: un lien de confirmation qui contient un token (suite de charactere generé en aléatoire)
                 $this->userService->createTokenAndSendEmail($user);
             }
-
+            //Indique a ObjectManager de rendre une instance gérée et persistante
+            //L'objet sera saisi dans la base de données à la suite de l'opération "flush"
             $this->em->persist($user);
+            //Rétablit dans la base de données toutes les modifications apportées aux objets qui ont été mises en file d'attente jusqu'à présent
             $this->em->flush();
+            //Ajoute un message flash à la session en cours
             $this->addFlash(type: "success", message: "Inscription réussie ! ");
-
+            //Renvoie une RedirectResponse à la route donnée avec les paramètres donnés
             return $this->redirectToRoute('app_home');
 
         } elseif ($form->isSubmitted() && $user->getEmail()) {

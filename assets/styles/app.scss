@@ -1,13 +1,12 @@
 @import 'bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap');
 
 * {
   box-sizing: border-box;
   margin: auto;
+  font-family: 'Open Sans', sans-serif;
 }
-// #94245c
-ul {
-  margin-bottom: 0;
-}
+
 body {
   background-size: cover;
   display: block;
@@ -32,6 +31,13 @@ body {
 li {
   list-style: none;
 }
+a {
+  text-decoration: none;
+  gap: 10;
+}
+i,a {
+  color: white;
+}
 
 h5 {
   border: solid 1px #d2d2d2;
@@ -53,61 +59,90 @@ h5 {
   color: red;
 }
 
-.header-left {
-  margin-left: initial;
-}
-.header-right {
+.header {
   display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
   background-color: #94245c;
-}
-.header-right p {
-margin: 0;
+  height: 60px;
 }
 
-#nav{
-  background-color: #94245c;
-}
-#nav ul {
+.header-left ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: transparent;
-  // border: solid 1px #d2d2d2;
   padding: 0;
 }
 
-// #nav ul li {
-//   // border-left: 1px solid #d2d2d2;
-//   // border-right: 1px solid #d2d2d2;
-// }
-
 .hero {
-  padding: 200px 100px;
-  z-index: -1;
+  height: 600px;
+  background-position: bottom;
   background-image: url('/assets/images/TGEE1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 100px;
 }
-#main {
-  display: flex;
-  min-height:400px;
-  position:relative;
-  // z-index: -1;
-  background-image: url('/assets/images/telephone.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-bottom:100px;   /* Hauteur du pied de page */
+.hero-text {
+  border: solid 1px;
+  display: contents;
+  background-color: #94245c;
+  padding: 5PX;
+}
+.devis-a {
+  text-decoration: none;
+  position: absolute;
+  top: 300px;
+  left: 100px;
+  background-color: #94245c;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+
 }
 
-.form-contact {
-  width: 40%;
+.societe {
+  display: flex;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+.societe-text{
+  padding: 30px;
+  flex: 2;
+}
+.societe-img{
+  flex: auto;
+}
+.services {
+  display: flex;
+  background-image: url('/public/build/images/telephone.7306e488.jpg');
+  background-repeat: no-repeat;
+  flex-wrap: wrap;
+}
+
+.services-img {
+  padding: 30px;
+  flex: 2;
+}
+
+.services-text {
+  padding: 30px;
+  flex: auto;
+}
+
+.contact {
+  display: flex;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-1 {
+padding: 30px;
+flex: 2;
+}
+
+.contact-form {
   background-color: #94245c;
-  padding: 20px;
-  margin-top: 50px;
+  padding: 50px;
   border-radius: 10px;
+  flex: auto;
 }
 
 .radio {
@@ -198,11 +233,11 @@ margin: 0;
   margin-bottom: 72px;
 }
 
-#map { 
-  height: 300px; 
-}
-.contact {
-  display: flex;
+// #map { 
+//   height: 300px;
+//   width: -webkit-fill-available; 
+// }
+.map {
   padding: 15px;
 }
 
@@ -210,10 +245,16 @@ margin: 0;
   background-color: #94245c;
   height: 150px;
 }
-
+.footer-2{ 
+  display: flex;
+  padding: 10px;
+}
+.footer-3 {
+  text-align: center;
+  padding: 10px;
+}
 #footer ul {
   display: flex;
-  justify-content: space-evenly;
   padding: 5px;
-  
+  gap: 20px;
 }

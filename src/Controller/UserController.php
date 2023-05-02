@@ -27,8 +27,11 @@ class UserController extends AbstractController
     private $em;
 
     public function __construct(
-        private UserRepository $userRepository, Mailer $mailer, EntityManagerInterface $em, UserService $userService)
-    {
+        private UserRepository $userRepository,
+        Mailer $mailer,
+        EntityManagerInterface $em,
+        UserService $userService
+    ) {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->userService = $userService;
@@ -51,13 +54,12 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         // User est un nouvel User
         $user = new User();
-        // Affiche le formulaire
+        // Crée et renvoie une instance de formulaire à partir du type de formulaire (içi UserType).
         $form = $this->createForm(UserType::class, $user);
         // Demande du formulaire
         $form->handleRequest($request);
         // Si le formulaire est soumis et est valide
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -90,10 +92,8 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         $userConnecter = $this->getUser();
         $user = $this->userRepository->find($id);
-        if (!$this->isGranted('ROLE_ADMIN'))
-        {
-            if ($userConnecter !== $user)
-            {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            if ($userConnecter !== $user) {
                 throw new AccessDeniedException();
             }
         }
@@ -111,8 +111,6 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-//        $user = $this->userRepository->findByRoles('["ROLE_ADMIN"]');
-//        dd($user);
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($isAdmin) {
@@ -147,8 +145,10 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('user/edit.html.twig', ['user' => $user,
-            'form' => $form->createView(),]);
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
@@ -179,28 +179,20 @@ class UserController extends AbstractController
     #[Route('/{id}/suppresionProfil', name: 'profil_suppression')]
     public function suppressionProfil(Request $request, User $user, TokenStorageInterface $tokenStorage, DevisRepository $devisRepository): Response
     {
-
         if ($request->attributes->get('user')->getToken()) {
             $devisToUpdate = $devisRepository->findBy([
                 'membre' => $user
             ]);
-
             foreach ($devisToUpdate as $deviToUpdate) {
                 $deviToUpdate->setMembre(null);
                 $devisRepository->save($deviToUpdate, true);
             }
-
             $request->getSession()->invalidate();
             $tokenStorage->setToken(null);
-
             $this->em->remove($user);
             $this->em->flush();
-
         }
-        
         $this->addFlash('success', 'Votre compte a bien été supprimée');
         return $this->redirectToRoute('app_logout');
     }
-
-
 }

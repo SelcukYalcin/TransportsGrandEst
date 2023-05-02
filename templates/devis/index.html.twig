@@ -15,6 +15,7 @@
             <th>Marchandise</th>
             <th>Type de Client</th>
             <th>Service</th>
+            <th>Email</th>
             <th>Membre</th>
             <th>Actions</th>
         </tr>
@@ -41,8 +42,12 @@
                     <p class="badge bg-warning">
                         {{ devi.serviceTypeText }}
                     </p>
-                    </td>
-                    {# <span class="badge bg-secondary">{{ devi.serviceType }}</td> #}
+                </td>
+                <td>
+                    <p class="badge bg-warning">
+                        {{ devi.email }}
+                    </p>
+                </td>
                 {% if devi.membre %}
                     <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
                 {% else %}

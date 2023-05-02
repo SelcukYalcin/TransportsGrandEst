@@ -116,7 +116,7 @@ class SecurityController extends AbstractController
         UserRepository              $userRepository,
         EntityManagerInterface      $em,
         UserPasswordHasherInterface $passwordHasher
-    ): Response
+    ) : Response
     {
         // On vérifie si on a ce token dans la base de données
         $user = $userRepository->findOneByUserToken($userToken);
