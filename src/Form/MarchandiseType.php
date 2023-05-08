@@ -55,8 +55,6 @@ class MarchandiseType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-//            ->add('expediteur')
-//            ->add('destinataire')
         ;
     }
 

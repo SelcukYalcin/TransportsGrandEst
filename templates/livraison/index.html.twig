@@ -26,6 +26,12 @@
                 <td><span class="badge bg-info">{{ livraison.expediteur }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.destinataire }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.serviceLivraison }}</span></td>
+                <td><span class="badge bg-secondary">
+                    {% for marchandise in livraison.getMarchandises %}
+                        {{ marchandise.getConditionnement }}
+                    {% endfor %}</td>
+
+                <td>
                 <td><span class="badge bg-info">{{ livraison.dateEnlevement|date('d/m/Y H:i:s')   }}</span></td>
                 <td><span class="badge bg-info">{{ livraison.dateLivree |date('d/m/Y H:i:s')  }}</span></td>
                 <td>

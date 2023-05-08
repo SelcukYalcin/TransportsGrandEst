@@ -5,76 +5,83 @@
 {% block body %}
     <h1 class="badge bg-info">Liste des Devis</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>N° de Devis</th>
-            <th>Date de validité</th>
-            <th>Expéditeur</th>
-            <th>Destinataire</th>
-            <th>Marchandise</th>
-            <th>Type de Client</th>
-            <th>Service</th>
-            <th>Email</th>
-            <th>Membre</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for devi in devis %}
-            {% dump(devi) %}
-            <tr>
-                <td><span class="badge bg-secondary">{{ devi.id }}</td>
-                <td><span class="badge bg-info">{{ devi.dateVal ? devi.dateVal|date('Y-m-d') : '' }}</td>
-                <td><span class="badge bg-secondary">{{ devi.expediteur |replace({'[br]' : '<br>'})|raw }}</td>
-                <td><span class="badge bg-secondary">{{ devi.destinataire |replace({'[br]' : '<br>'})|raw }}</td>
-                <td><span class="badge bg-secondary">
-                    {% for marchandise in devi.getMarchandise %}
-                        {{ marchandise.getConditionnement }}
-                    {% endfor %}</td>
-
-                <td>
-                    <p class="badge bg-warning">
-                        {{ devi.clientTypeText }}
-                    </p>
-                </td>
-                <td>
-                    <p class="badge bg-warning">
-                        {{ devi.serviceTypeText }}
-                    </p>
-                </td>
-                <td>
-                    <p class="badge bg-warning">
-                        {{ devi.email }}
-                    </p>
-                </td>
-                {% if devi.membre %}
-                    <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
-                {% else %}
-                    <td><span class="badge bg-warning">Aucun utilisateur associé au devis</td>
-                {% endif %}
-                <td>
-                    <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="btn btn-info"><i class="fa-solid fa-info" style="color: #000000;"></i></a>
-                    <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
-                    {{ include('devis/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3" class="badge bg-warning">Aucun devis à afficher</td>
-            </tr>
-        {% endfor %}
-
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_devis_new') }}" class="btn btn-warning">Créer un nouveau devis</a>
+    <div class="px-5">
         <div>
+            {{form_start(form)}}
+                <button class="search_btn" type="submit">Recherche</button>
+            {{form_end(form)}}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                {# <th>N° de Devis</th> #}
+                <th>Date de validité</th>
+                <th>Expéditeur</th>
+                <th>Destinataire</th>
+                <th>Marchandise</th>
+                <th>Type de Client</th>
+                <th>Service</th>
+                <th>Email</th>
+                <th>Membre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for devi in devis %}
+                {% dump(devi) %}
+                <tr class="text-dark">
+                    {# <td><span class="badge bg-secondary">{{ devi.id }}</td> #}
+                    <td><span>{{ devi.dateVal ? devi.dateVal|date('d-m-Y') : '' }}</td>
+                    <td><span>{{ devi.expediteur |replace({'[br]' : '<br>'})|raw }}</td>
+                    <td><span>{{ devi.destinataire |replace({'[br]' : '<br>'})|raw }}</td>
+                    <td><span>
+                        {% for marchandise in devi.getMarchandise %}
+                            {{ marchandise.getConditionnement }}
+                        {% endfor %}</td>
+    
+                    <td>
+                        <p>
+                            {{ devi.clientTypeText }}
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            {{ devi.serviceTypeText }}
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            {{ devi.email }}
+                        </p>
+                    </td>
+                    {% if devi.membre %}
+                        <td><span class="badge bg-success">{{ devi.membre.email }}</span></td>
+                    {% else %}
+                        <td><span class="badge bg-warning">Aucun utilisateur associé au devis</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('app_devis_show', {'id': devi.id}) }}" class="btn btn-info"><i class="fa-solid fa-info" style="color: #000000;"></i></a>
+                        <a href="{{ path('app_devis_edit', {'id': devi.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></a>
+                        {{ include('devis/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="badge">Aucun devis à afficher</td>
+                </tr>
+            {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ path('app_devis_new') }}" class="btn bg-dark">Créer un nouveau devis</a>
+        <div class="bg-dark">
             {% if devis|length == 0 %}
                 <p>Pas de devis</p>
             {% else %}
                 {{ knp_pagination_render(devis)}}
-            {# {{ dump(devis | length) }} #}
             {% endif %}
         </div>
 {% endblock %}

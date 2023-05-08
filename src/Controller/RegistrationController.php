@@ -77,19 +77,21 @@ class RegistrationController extends AbstractController
             //Renvoie une RedirectResponse à la route donnée avec les paramètres donnés
             return $this->redirectToRoute('app_home');
 
-        } elseif ($form->isSubmitted() && $user->getEmail()) {
-            /** @var User $user */
-            $user = $userRepository->findOneBy([
-                'email' => $user->getEmail(),
-            ]);
+        } 
+        // elseif ($form->isSubmitted() && $user->getEmail()) {
+        //     /** @var User $user */
+        //     $user = $userRepository->findOneBy([
+        //         'email' => $user->getEmail(),
+        //     ]);
 
-            $this->userService->createTokenAndSendEmail($user);
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->addFlash(type: "danger", message: "Renvoi mail vérification ! ");
+            
+        //     $this->userService->createTokenAndSendEmail($user);
+        //     $this->em->persist($user);
+        //     $this->em->flush();
+        //     $this->addFlash(type: "danger", message: "Renvoi mail vérification ! ");
 
-            return $this->redirectToRoute('app_register');
-        }
+        //     return $this->redirectToRoute('app_register');
+        // }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

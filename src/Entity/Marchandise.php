@@ -42,6 +42,9 @@ class Marchandise
     #[ORM\ManyToMany(targetEntity: Devis::class, mappedBy: 'marchandise')]
     private Collection $devis;
 
+    #[ORM\ManyToOne(inversedBy: 'marchandise')]
+    private ?Livraison $livraison = null;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
@@ -167,6 +170,18 @@ class Marchandise
     public function __toString()
     {
         return  $this->conditionnement;
+    }
+
+    public function getLivraison(): ?Livraison
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(?Livraison $livraison): self
+    {
+        $this->livraison = $livraison;
+
+        return $this;
     }
 
 }

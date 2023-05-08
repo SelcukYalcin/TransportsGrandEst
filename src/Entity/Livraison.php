@@ -38,9 +38,13 @@ class Livraison
     #[ORM\Column(length: 255)]
     private ?string $serviceLivraison = null;
 
+    #[ORM\OneToMany(mappedBy: 'livraison', targetEntity: Marchandise::class)]
+    private Collection $marchandise;
+
     public function __construct()
     {
         $this->marchandises = new ArrayCollection();
+        $this->marchandise = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +152,14 @@ class Livraison
         $this->serviceLivraison = $serviceLivraison;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Marchandise>
+     */
+    public function getMarchandise(): Collection
+    {
+        return $this->marchandise;
     }
 
 }

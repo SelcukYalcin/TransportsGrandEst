@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Devis;
 use App\Form\DevisType;
 use App\Entity\Expediteur;
 use App\Entity\Marchandise;
 use App\Entity\Destinataire;
+use App\Form\RechercheType;
 use Symfony\Component\Mime\Email;
 use App\Repository\DevisRepository;
+use App\Service\Recherche;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +33,13 @@ class DevisController extends AbstractController
 
     #[Route('/list', name: 'app_devis_index', methods: ['GET'])]
     public function index(Request $request, DevisRepository $devisRepository, PaginatorInterface $paginatorInterface): Response
-    {
+    {   
+        $recherche = new Recherche();
+        $form = $this->createForm(RechercheType::class, $recherche);
+        $form->handleRequest($request);
+
+        //$date = new DateTime('2022-01-01');
+        // $devis = $devisRepository->findByDate($date);
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($this->isGranted('ROLE_ADMIN')) {
             //Afficher tous les devis
@@ -41,13 +50,25 @@ class DevisController extends AbstractController
             $data = $this->getUser()->getDevis();
         }
 
+        if($form->isSubmitted() && $form->isValid()){
+            $recherche = $this->em->getRepository(Devis::class)->RechercheDevis($recherche);
+            $recherche = $paginatorInterface->paginate( $recherche, $request->query->getInt('page', 1), 5
+            );
+
+            return $this->render('devis/index.html.twig', [
+                'devis' => $recherche,
+                'form' => $form->createView(),
+            ]);
+        }
+
         $devis = $paginatorInterface->paginate(
             $data,
-            $request->query->getInt('page', 1), 5
+            $request->query->getInt('page', 1), 7
         );
 
         return $this->render('devis/index.html.twig', [
-            'devis' => $devis
+            'devis' => $devis,
+            'form' => $form->createView(),
         ]);
     }
 

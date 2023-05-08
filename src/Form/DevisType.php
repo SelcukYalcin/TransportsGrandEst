@@ -23,12 +23,8 @@ class DevisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('dateVal', DateType::class, [
-//                'label' => 'Date de Validité',
-//                'required' => false
-//            ])
+
             ->add('clientType', ChoiceType::class, [
-//                'label' => 'Vous êtes un',
                 'choices' => [
                     'Professionnel' => true,
                     'Particulier' => false,

@@ -25,7 +25,6 @@
             <h3><a href="{{ path('app_user_index') }}" class="btn btn-info"><i class="fa-solid fa-list" style="color: #000000;"></i> Utilisateurs</a></h3>
             {% endif %}
             <h3><a href="{{ path('profil_suppression', {'id': app.user.id}) }}" class="btn btn-danger">Supprimer mon compte</a></h3>
-
         {% endif %}
     </div>
     <div class="societe">   
@@ -36,12 +35,12 @@
             </p>
         </div>
         <div class="societe-img">
-            <img class="flotte-societe" src="{{ asset('build/images/flotte-societe.jpg') }}" alt="Flotte Société">
+            <img class="flotte-societe" src="{{ asset('images/flotte-societe.jpg') }}" alt="Flotte Société">
         </div>
     </div>
     <div class="services">   
         <div class="services-img">
-            <img class="services-image" src="{{ asset('build/images/les-services.jpg') }}" alt="Les Services">
+            <img class="services-image" src="{{ asset('images/les-services.jpg') }}" alt="Les Services">
         </div>
         <div class="services-text">
             <h4>Les Services</h4>
@@ -54,7 +53,6 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.9198576743747!2d7.733878115663614!3d48.55392847925878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796c99d69d89fab%3A0x124f6eb99c077bf3!2sTransports%20Grand-Est%20Express!5e0!3m2!1sfr!2sfr!4v1681483155276!5m2!1sfr!2sfr" 
         width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    {# <div id="map">map</div> #}
     <div class="contact">
         <div class="contact-1">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, totam quos! Quae quas quibusdam quaerat corporis, accusantium impedit recusandae animi autem nisi, fuga eos minima obcaecati quasi itaque earum numquam?
@@ -66,7 +64,7 @@
             {{ form_row(form.email) }}
             {{ form_row(form.message) }}       
             <div class="button-envoyer">
-                <button class="btn btn-success">{{ button_label|default('Envoyer') }}</button>
+                <button class="bouton-envoyer">{{ button_label|default('Envoyer') }}</button>
             </div>
             {{ form_end(form) }}
         </div>

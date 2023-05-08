@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap');
+:root{
+  --main_color: #94245c;
+  --secondary_color: #c9ad86;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background-size: cover;
+  display: block;
+}
+
+#container {
+  background-repeat: no-repeat;
+}
+
+.logo {
+  max-width: 80px;
+  border: solid 1px #d2d2d2;
+  border-radius: 10px;
+  padding: 5px 5px;
+  background-color: var(--secondary_color);
+}
+
+.logo img {
+  background-color: var(--secondary_color);
+}
+
+.warning,
+.success{
+  background-color:  var(--secondary_color) !important;
+}
+
+.nav_links{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon{
+  display: none;
+}
+.text-white.nav_item{
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+}
+
+.text-white.nav_item:hover{
+  color:  var(--secondary_color) !important;
+  text-decoration: underline;
+}
+
+/*------- MENU BURGER -------*/
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none !important;
+  color: #fff !important;
+}
+i,a {
+  color: white;
+}
+
+.conditions{
+  color: black;
+}
+
+h5 {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #0dcaf0;
+}
+
+.required:not(.radio):after {
+  content: "*";
+  color: red;
+}
+
+.alert.alert-success {
+  color: green;
+}
+
+.alert.alert-danger {
+  color: red;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--main_color);
+  align-items: center;
+  padding: 0 90PX;
+}
+
+.topnav {
+  display: flex;
+}
+
+.hero {
+  height: 600px;
+  background-position: bottom;
+  background-image: url('/images/TGEE1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 100px;
+}
+
+.hero-text {
+  border: solid 1px;
+  display: contents;
+  background-color: var(--main_color);
+  padding: 5PX;
+}
+
+.devis-a {
+  text-decoration: none;
+  position: absolute;
+  top: 300px;
+  left: 100px;
+  background-color: var(--main_color);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.devis-a:hover{
+  color: var(--secondary_color) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.societe {
+  display: flex;
+  padding: 20px;
+}
+
+.societe-text{
+  padding: 20px;
+  flex: 1;
+}
+
+.flotte-societe {
+  width: 100%;
+}
+
+.societe-img{
+  padding: 20px;
+  flex: 1;
+}
+
+.services {
+  display: flex;
+  padding: 20px;
+  background-image: url('/images/telephone.jpg');
+  background-repeat: no-repeat;
+}
+
+.services-img {
+  padding: 20px;
+  flex: 1;
+}
+
+.services-image {
+  width: 100%; 
+}
+
+.services-text {
+  padding: 20px;
+  flex: 1;
+}
+
+.contact {
+  display: flex;
+  margin: 20px;
+}
+
+.contact-1 {
+  padding: 20px;
+  flex: 1;
+}
+
+.contact-form {
+  background-color: var(--secondary_color);
+  padding: 50px;
+  border-radius: 10px;
+  flex: 1;
+}
+
+.radio {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #0dcaf0;
+
+}
+
+.client-type {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: 50px;
+}
+
+.service-type {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: 50px;
+}
+
+.select-type {
+  display: flex;
+}
+
+.expediteur {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.destinataire {
+  border: solid 1px #d2d2d2;
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.trajet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px 20px;
+}
+
+.marchandise {
+  border: solid 1px #d2d2d2;
+  padding: 0px 50px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.info-marchandise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.add_item_link {
+  border: solid 1px #d2d2d2;
+  border-radius: 10px;
+}
+
+.coordonnees {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px 0;
+
+}
+
+.form-coordonnees {
+  border: solid 1px #d2d2d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.devis-form {
+  margin-bottom: 72px;
+}
+
+.map {
+  padding: 15px;
+}
+
+#footer {
+  background-color: var(--main_color);
+  /* height: 150px; */
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-2{ 
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+.footer-3 {
+  text-align: center;
+  padding: 10px;
+}
+#footer ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  gap: 20px;
+  align-items: center;
+  margin: auto;
+}
+
+.bouton-envoyer {
+  color: #fbfbfb;
+  background-color: var(--main_color);
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  transition: all 0.2s ease-out;
+  text-align: center;
+  margin: 10px;
+}
+
+.bouton-envoyer:hover{
+  background: transparent;
+  border: 1px solid var(--main_color);
+}
+
+.nav_bar {
+  overflow: hidden;
+}
+
+.nav_bar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.drop_down {
+  float: left;
+  overflow: hidden;
+}
+
+.drop_down .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.nav_bar a:hover, .drop_down:hover .dropbtn {
+  background-color: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--main_color);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.drop_down:hover .dropdown-content {
+  display: block;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+.footer {
+  flex-shrink: 0;
+  background-color: var(--main_color);
+  /* height: 150px; */
+  bottom: 0;
+  width: 100%;
+}

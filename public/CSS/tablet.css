@@ -1,0 +1,66 @@
+@media (max-width: 640px) {
+    body{
+        width: 100%;
+    }
+
+    #mapDiv{
+        width: 100%;
+    }
+
+    .services-img{
+        width: 100%;
+    }
+
+    .services-image {
+        width: 100%; 
+    }
+
+    .services-text {
+         width: 100%;
+        text-align: center;
+    }
+
+    .services {
+        width: 100%;
+        display: contents;
+    }
+
+    .societe {
+        width: 100%;
+        display: contents;
+    }
+    
+    .societe-text {
+        width: 100%;
+        text-align: center;
+    }
+
+    .flotte-societe {
+        width: 100%;
+    }
+    
+    .contact {
+        width: 100%;
+        display: contents;
+    }
+    
+    .contact-1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .contact-form {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .footer ul{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #footer {
+        height: auto;
+    }
+       
+}

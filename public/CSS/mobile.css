@@ -1,0 +1,111 @@
+@media (max-width: 430px) {
+body{
+    width: 100%;
+    font-size: xx-small ;
+}
+:root{
+    --main_color: #94245c;
+    --secondary_color: #c9ad86;
+  }
+
+.text-white.nav_item{
+    text-decoration: none;
+    transition: all .3s ease-in-out;
+}
+
+.header {
+  padding: 0 ;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: var(--main_color);
+  position: relative;
+  width: 100%;
+  align-items: center;
+}
+
+.topnav #nav_links {
+  display: none;
+}
+
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: var(--secondary_color);
+  display: block;
+  position: absolute;
+  right: 0;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.connexion_register{
+  background-color: var(--main_color);
+}
+.services-img{
+width: 100%;
+}
+
+.services-image {
+width: 100%; 
+}
+
+.services-text {
+    width: 100%;
+text-align: center;
+}
+
+.services {
+width: 100%;
+display: contents;
+}
+
+.societe {
+width: 100%;
+display: contents;
+}
+
+.societe-text {
+width: 100%;
+text-align: center;
+}
+
+.flotte-societe {
+width: 100%;
+}
+
+.contact {
+width: 100%;
+display: contents;
+}
+
+.contact-1 {
+width: 100%;
+text-align: center;
+}
+
+.contact-form {
+width: 100%;
+border-radius: 0;
+}
+
+.footer-1 ul{
+width: 100%;
+flex-direction: column;
+}
+
+#footer {
+height: auto;
+}
+
+}
